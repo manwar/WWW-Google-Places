@@ -4,15 +4,17 @@ $WWW::Google::Places::Params::VERSION = '0.05';
 
 use 5.006;
 use strict; use warnings;
+
+use vars qw(@EXPORT_OK);
 use parent 'Exporter';
 use Data::Dumper;
 
-our @EXPORT_OK = qw(validate $FIELDS);
+@EXPORT_OK = qw(validate $FIELDS);
 
 use WWW::Google::Places::CONSTANTS qw($PLACE_TYPES $MORE_PLACE_TYPES);
 
 my $_check_location = sub {
-    my $location = shift;
+    my ($location) = @_;
 
     my ($latitude, $longitude);
     die "ERROR: Invalid location type data found [$_]"
@@ -28,7 +30,7 @@ my $_check_location = sub {
 };
 
 my $_check_types = sub {
-    my $types = shift;
+    my ($types) = @_;
 
     my @types = ();
     die "ERROR: Invalid search type data [$types]"
@@ -43,17 +45,17 @@ my $_check_types = sub {
 };
 
 my $_check_num = sub {
-    my $num = shift;
+    my ($num) = @_;
 
     die "ERROR: Invalid NUM data type [$num]"
-        unless ($num =~ /^\d+$/);
+        unless (defined $num && $num =~ /^\d+$/);
 };
 
 my $_check_str = sub {
-    my $str = shift;
+    my ($str) = @_;
 
     die "ERROR: Invalid STR data type [$str]"
-        if ($str =~ /^\d+$/);
+        if (defined $str && $str =~ /^\d+$/);
 };
 
 =head1 NAME
@@ -76,19 +78,22 @@ our $FIELDS = {
 sub validate {
     my ($fields, $values) = @_;
 
-    die "ERROR: Missing params list."
-        unless (defined $values && ref($values) eq 'HASH');
+    die "ERROR: Missing params list." unless (defined $values);
+
+    die "ERROR: Parameters have to be hash ref" unless (ref($values) eq 'HASH');
 
     foreach my $field (@{$fields}) {
         die "ERROR: Invalid param received [$field]"
             unless (exists $FIELDS->{$field});
 
-        unless ($FIELDS->{$field}->{optional}) {
-            die "ERROR: Parameter [$field] undefined."
-                unless (defined $values->{$field});
-        }
+        die "ERROR: Missing mandatory param [$field]"
+            if (!$FIELDS->{$field}->{optional} && !exists $FIELDS->{$field});
 
-        $FIELDS->{$field}->{check}->($values->{$field});
+        die "ERROR: Undefined mandatory param [$field]"
+            if (!$FIELDS->{$field}->{optional} && !defined $FIELDS->{$field});
+
+	$FIELDS->{$field}->{check}->($values->{$field})
+            if defined $values->{$field};
     }
 }
 
