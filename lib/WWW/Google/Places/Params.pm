@@ -1,24 +1,18 @@
-package WWW::Google::Places;
+package WWW::Google::Places::Params;
 
-$WWW::Google::Places::VERSION = '';
+$WWW::Google::Places::Params::VERSION = '';
 
 use 5.006;
+use strict;
+use warnings FATAL => 'all';
 
 =head1 NAME
 
-WWW::Google::Places - The great new WWW::Google::Places!
+WWW::Google::Params - The great new WWW::Google::Params!
 
 =head1 VERSION
 
 Version 0.01
-
-=head1 DESCRIPTION
-
-=head1 METHODS
-
-=head2 function1
-
-=cut
 
 =head1 AUTHOR
 
@@ -35,7 +29,7 @@ bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc WWW::Google::Places
+    perldoc WWW::Google::Places::Params
 
 You can also look for information at:
 
@@ -99,4 +93,4 @@ OF THE PACKAGE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 
-1; # End of WWW::Google::Places
+1; # End of WWW::Google::Places::Params

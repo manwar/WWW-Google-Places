@@ -1,7 +1,7 @@
 Build.PL
 Changes
-lib/WWW/Google/Params.pm
 lib/WWW/Google/Places.pm
+lib/WWW/Google/Places/Params.pm
 lib/WWW/Google/Places/CONSTANTS.pm
 Makefile.PL
 MANIFEST
