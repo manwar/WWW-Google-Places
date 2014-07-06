@@ -1,5 +1,19 @@
 Revision history for WWW-Google-Places
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
+0.05    Sun Jul 07 16:27:20 2014
+        - Restructured to use the common library WWW::Google::UserAgent
 
+0.04    Mon Aug 08 09:46:11 2011
+        - Made Readonly v1.03 as minimum requirement.
+        - Prepared the distribution using the Module::Signature v0.68.
+
+0.03    Wed May 18 20:00:00 2011
+        - Updated text for "LICENSE AND COPYRIGHT".
+
+0.02    Mon May 16 13:09:00 2011
+        - Updated the CONSTRUCTOR logic, so that it can now accept the api_key and sensor param
+          as list i.e new($api_key, $sensor) as well.
+        - Minor pod changes.
+
+0.01    Mon May 16 11:30:01 2011
+        - First version, released.

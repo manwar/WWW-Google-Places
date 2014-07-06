@@ -1,18 +1,165 @@
 package WWW::Google::Places::CONSTANTS;
 
-$WWW::Google::Places::CONSTANTS::VERSION = '';
+$WWW::Google::Places::CONSTANTS::VERSION = '0.05';
 
 use 5.006;
-use strict;
-use warnings FATAL => 'all';
+use strict; use warnings;
+use parent 'Exporter';
+
+our @EXPORT_OK = qw(
+    $PLACE_TYPES
+    $MORE_PLACE_TYPES
+    $STATUS
+);
+
+our $PLACE_TYPES = {
+    'accounting'              => 1,
+    'airport'                 => 1,
+    'amusement_park'          => 1,
+    'aquarium'                => 1,
+    'art_gallery'             => 1,
+    'atm'                     => 1,
+    'bakery'                  => 1,
+    'bank'                    => 1,
+    'bar'                     => 1,
+    'beauty_salon'            => 1,
+    'bicycle_store'           => 1,
+    'book_store'              => 1,
+    'bowling_alley'           => 1,
+    'bus_station'             => 1,
+    'cafe'                    => 1,
+    'campground'              => 1,
+    'car_dealer'              => 1,
+    'car_rental'              => 1,
+    'car_repair'              => 1,
+    'car_wash'                => 1,
+    'casino'                  => 1,
+    'cemetery'                => 1,
+    'church'                  => 1,
+    'city_hall'               => 1,
+    'clothing_store'          => 1,
+    'convenience_store'       => 1,
+    'courthouse'              => 1,
+    'dentist'                 => 1,
+    'department_store'        => 1,
+    'doctor'                  => 1,
+    'electrician'             => 1,
+    'electronics_store'       => 1,
+    'embassy'                 => 1,
+    'establishment'           => 1,
+    'finance'                 => 1,
+    'fire_station'            => 1,
+    'florist'                 => 1,
+    'food'                    => 1,
+    'funeral_home'            => 1,
+    'furniture_store'         => 1,
+    'gas_station'             => 1,
+    'general_contractor'      => 1,
+    'geocode'                 => 1,
+    'grocery_or_supermarket'  => 1,
+    'gym'                     => 1,
+    'hair_care'               => 1,
+    'hardware_store'          => 1,
+    'health'                  => 1,
+    'hindu_temple'            => 1,
+    'home_goods_store'        => 1,
+    'hospital'                => 1,
+    'insurance_agency'        => 1,
+    'jewelry_store'           => 1,
+    'laundry'                 => 1,
+    'lawyer'                  => 1,
+    'library'                 => 1,
+    'liquor_store'            => 1,
+    'local_government_office' => 1,
+    'locksmith'               => 1,
+    'lodging'                 => 1,
+    'meal_delivery'           => 1,
+    'meal_takeaway'           => 1,
+    'mosque'                  => 1,
+    'movie_rental'            => 1,
+    'movie_theater'           => 1,
+    'moving_company'          => 1,
+    'museum'                  => 1,
+    'night_club'              => 1,
+    'painter'                 => 1,
+    'park'                    => 1,
+    'parking'                 => 1,
+    'pet_store'               => 1,
+    'pharmacy'                => 1,
+    'physiotherapist'         => 1,
+    'place_of_worship'        => 1,
+    'plumber'                 => 1,
+    'police'                  => 1,
+    'post_office'             => 1,
+    'real_estate_agency'      => 1,
+    'restaurant'              => 1,
+    'roofing_contractor'      => 1,
+    'rv_park'                 => 1,
+    'school'                  => 1,
+    'shoe_store'              => 1,
+    'shopping_mall'           => 1,
+    'spa'                     => 1,
+    'stadium'                 => 1,
+    'storage'                 => 1,
+    'store'                   => 1,
+    'subway_station'          => 1,
+    'synagogue'               => 1,
+    'taxi_stand'              => 1,
+    'train_station'           => 1,
+    'travel_agency'           => 1,
+    'university'              => 1,
+    'veterinary_care'         => 1,
+    'zoo'                     => 1,
+};
+
+our $MORE_PLACE_TYPES = {
+    'administrative_area_level_1' => 1,
+    'administrative_area_level_2' => 1,
+    'administrative_area_level_3' => 1,
+    'colloquial_area'             => 1,
+    'country'                     => 1,
+    'floor'                       => 1,
+    'intersection'                => 1,
+    'locality'                    => 1,
+    'natural_feature'             => 1,
+    'neighborhood'                => 1,
+    'political'                   => 1,
+    'point_of_interest'           => 1,
+    'post_box'                    => 1,
+    'postal_code'                 => 1,
+    'postal_code_prefix'          => 1,
+    'postal_town'                 => 1,
+    'premise'                     => 1,
+    'room'                        => 1,
+    'route'                       => 1,
+    'street_address'              => 1,
+    'street_number'               => 1,
+    'sublocality'                 => 1,
+    'sublocality_level_4'         => 1,
+    'sublocality_level_5'         => 1,
+    'sublocality_level_3'         => 1,
+    'sublocality_level_2'         => 1,
+    'sublocality_level_1'         => 1,
+    'subpremise'                  => 1,
+    'transit_station'             => 1,
+};
+
+our $STATUS = {
+    'OK'               => 'No errors occurred; the place was successfully detected and at least one result was returned.',
+    'ZERO_RESULTS'     => 'Search was successful but returned no results.',
+    'OVER_QUERY_LIMIT' => 'You are over your quota.',
+    'REQUEST_DENIED'   => 'Your request was denied, generally because of lack of a sensor parameter.',
+    'INVALID_REQUEST'  => 'A required query parameter (location or radius) is missing.',
+    'UNKNOWN_ERROR'    => 'A server-side error; trying again may be successful.',
+};
 
 =head1 NAME
 
-WWW::Google::Places::CONSTANTS - The great new WWW::Google::Places::CONSTANTS!
+WWW::Google::Places::CONSTANTS - Placeholder for CONSTANTS for WWW::Google::Places.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.05
 
 =head1 AUTHOR
 

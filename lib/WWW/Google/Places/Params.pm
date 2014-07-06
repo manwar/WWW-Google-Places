@@ -1,18 +1,96 @@
 package WWW::Google::Places::Params;
 
-$WWW::Google::Places::Params::VERSION = '';
+$WWW::Google::Places::Params::VERSION = '0.05';
 
 use 5.006;
-use strict;
-use warnings FATAL => 'all';
+use strict; use warnings;
+use parent 'Exporter';
+use Data::Dumper;
+
+our @EXPORT_OK = qw(validate $FIELDS);
+
+use WWW::Google::Places::CONSTANTS qw($PLACE_TYPES $MORE_PLACE_TYPES);
+
+my $_check_location = sub {
+    my $location = shift;
+
+    my ($latitude, $longitude);
+    die "ERROR: Invalid location type data found [$_]"
+        unless (($location =~ /\,/)
+                &&
+                ((($latitude, $longitude) = split/\,/,$location,2)
+                 &&
+                 (($latitude =~ /^\-?\d+\.?\d+$/)
+                  &&
+                  ($longitude =~ /^\-?\d+\.?\d+$/)
+                 )
+                ))
+};
+
+my $_check_types = sub {
+    my $types = shift;
+
+    my @types = ();
+    die "ERROR: Invalid search type data [$types]"
+        unless (defined($types)
+                &&
+                (@types = split/\|/,$types)
+                &&
+                (map { exists($PLACE_TYPES->{lc($_)})
+                           ||
+                           exists($MORE_PLACE_TYPES->{lc($_)})
+                 } @types ));
+};
+
+my $_check_num = sub {
+    my $num = shift;
+
+    die "ERROR: Invalid NUM data type [$num]"
+        unless ($num =~ /^\d+$/);
+};
+
+my $_check_str = sub {
+    my $str = shift;
+
+    die "ERROR: Invalid STR data type [$str]"
+        if ($str =~ /^\d+$/);
+};
 
 =head1 NAME
 
-WWW::Google::Params - The great new WWW::Google::Params!
+WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
 
 =head1 VERSION
 
-Version 0.01
+Version 0.05
+
+=cut
+
+our $FIELDS = {
+    'location' => { optional => 0, check => $_check_location, type => 's' },
+    'radius'   => { optional => 0, check => $_check_num,      type => 'd' },
+    'name'     => { optional => 1, check => $_check_str,      type => 's' },
+    'types'    => { optional => 1, check => $_check_types,    type => 's' },
+};
+
+sub validate {
+    my ($fields, $values) = @_;
+
+    die "ERROR: Missing params list."
+        unless (defined $values && ref($values) eq 'HASH');
+
+    foreach my $field (@{$fields}) {
+        die "ERROR: Invalid param received [$field]"
+            unless (exists $FIELDS->{$field});
+
+        unless ($FIELDS->{$field}->{optional}) {
+            die "ERROR: Parameter [$field] undefined."
+                unless (defined $values->{$field});
+        }
+
+        $FIELDS->{$field}->{check}->($values->{$field});
+    }
+}
 
 =head1 AUTHOR
 
