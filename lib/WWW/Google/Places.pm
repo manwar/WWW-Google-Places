@@ -298,22 +298,11 @@ Searches place.
 
 =cut
 
-sub search_place
-{
-    my $self   = shift;
-    my $params = shift;
+sub search {
+    my ($self, $values) = @_;
 
-    my $_params = [qw(location radius types name)];
-    validate($_params, $params);
-
-    my $url = sprintf("%s/search/%s?key=%s", $BASE_URL, $self->output, $self->api_key);
-    foreach (@$_params) {
-        my $_key = "&$_=%" . $FIELDS->{$_}->{type};
-        $url .= sprintf($_key, $params->{$_}) if defined $params->{$_};
-    }
-
-    my $response = $self->_get($url);
-    return from_json($response->{content});
+    my $params = [qw(location radius types name)];
+    return $self->_result('search', $params, $values);
 }
 
 =head2 place_detail()
@@ -338,6 +327,15 @@ place  such as its complete address, phone number, user rating, etc.
     $google    = WWW::Google::Places->new($api_key, $sensor);
     $detail    = $google->place_detail($reference);
 
+=cut
+
+sub details {
+    my ($self, $values) = @_;
+
+    my $params = [qw(reference)];
+    return $self->_result('details', $params, $values);
+}
+
 =head2 place_checkins()
 
 It indicates that a user has checked in to that Place.Check-in activity from your
@@ -361,6 +359,15 @@ matches.As check-in activity changes over time so does the ranking of each Place
     $reference = 'Place_reference';
     $google    = WWW::Google::Places->new($api_key, $sensor);
     $checkins  = $google->place_checkins($reference);
+
+=cut
+
+sub check_in {
+    my ($self, $values) = @_;
+
+    my $params = [qw(reference)];
+    return $self->_result('check-in', $params, $values);
+}
 
 =head2 add_place()
 
@@ -413,6 +420,29 @@ submitted them.
     $status    = $google->delete_place($reference);
 
 =cut
+
+sub _url {
+    my ($self, $type) = @_;
+
+    return sprintf("%s/%s/%s?key=%s&sensor=%s&language=%s",
+                   $BASE_URL, $type, $self->output, $self->api_key,
+                   $self->sensor, $self->language);
+}
+
+sub _result {
+    my ($self, $type, $params, $values) = @_;
+
+    validate($params, $values);
+
+    my $url = $self->_url($type);
+    foreach my $key (@$params) {
+	my $_key = "&$key=%" . $FIELDS->{$key}->{type};
+	$url .= sprintf($_key, $values->{$key}) if defined $values->{$key};
+    }
+
+    my $response = $self->_get($url);
+    return from_json($response->{content});
+}
 
 =head1 AUTHOR
 
