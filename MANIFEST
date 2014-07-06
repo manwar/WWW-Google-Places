@@ -1,0 +1,13 @@
+Build.PL
+Changes
+lib/WWW/Google/Params.pm
+lib/WWW/Google/Places.pm
+lib/WWW/Google/Places/CONSTANTS.pm
+Makefile.PL
+MANIFEST
+MANIFEST.SKIP
+SIGNATURE
+README
+t/00-load.t
+t/manifest.t
+t/pod.t
