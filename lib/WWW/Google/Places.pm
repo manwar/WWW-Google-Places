@@ -250,25 +250,18 @@ can  get it for FREE from Google.
     |           | either true or false. This must be provided.                                         |
     | language  | The language code, indicating in which language the results should be returned. The  |
     |           | default is en.                                                                       |
-    | output    | Output format JSON or XML. Default is JSON.                                          |
     +-----------+--------------------------------------------------------------------------------------+
 
     use strict; use warnings;
     use WWW::Google::Places;
 
-    my ($api_key, $sensor, $google);
-    $api_key = 'Your_API_Key';
-    $sensor  = 'true';
-
-    $google  = WWW::Google::Places->new($api_key, $sensor);
-    # or
-    $google  = WWW::Google::Places->new({'api_key'=>$api_key, sensor=>$sensor});
-    # or
-    $google  = WWW::Google::Places->new({'api_key'=>$api_key, sensor=>$sensor, language=>'en', output=>'json'});
+    my $api_key = 'Your_API_Key';
+    my $sensor  = 'true';
+    my $place   = WWW::Google::Places->new(api_key=>$api_key, sensor=>$sensor, language=>'en');
 
 =head1 METHODS
 
-=head2 search_place()
+=head2 search()
 
 Searches place.
 
@@ -290,86 +283,56 @@ Searches place.
     use strict; use warnings;
     use WWW::Google::Places;
 
-    my ($api_key, $sensor, $google, $places);
-    $api_key = 'Your_API_Key';
-    $sensor  = 'true';
-    $google  = WWW::Google::Places->new($api_key, $sensor);
-    $places  = $google->search_place(location=>'-33.8670522,151.1957362', radius=>500);
+    my $api_key = 'Your_API_Key';
+    my $sensor  = 'true';
+    my $place   = WWW::Google::Places->new($api_key, $sensor);
+    my $results = $google->search_place(location=>'-33.8670522,151.1957362', radius=>500);
 
 =cut
 
 sub search {
     my ($self, $values) = @_;
 
-    my $params = [qw(location radius types name)];
-    return $self->_result('search', $params, $values);
+    my $params   = { location => 1, radius => 1, types => 0, name => 0 };
+    my $url      = $self->_url('search', $params, $values);
+    my $response = $self->_get($url);
+
+    return from_json($response->{content});
 }
 
-=head2 place_detail()
+=head2 details()
 
 A Place Detail request returns more comprehensive information about the indicated
 place  such as its complete address, phone number, user rating, etc.
 
-    +-----------+--------------------------------------------------------------------------------+
-    | Key       | Description                                                                    |
-    +-----------+--------------------------------------------------------------------------------+
-    | reference | A textual identifier that uniquely identifies a place, returned from a Place   |
-    |           | search request. This must be provided.                                         |
-    +-----------+--------------------------------------------------------------------------------+
+    +-----------+-------------------------------------------------------------------------------------+
+    | Key       | Description                                                                         |
+    +-----------+-------------------------------------------------------------------------------------+
+    | placeid   | A textual identifier that uniquely identifies a place, returned from a Place Search |
+    +-----------+-------------------------------------------------------------------------------------+
 
     use strict; use warnings;
     use WWW::Google::Places;
 
-    my ($api_key, $sensor, $reference, $google, $detail);
-    $api_key   = 'Your_API_Key';
-    $sensor    = 'true';
-    $reference = 'Place_reference';
-    $google    = WWW::Google::Places->new($api_key, $sensor);
-    $detail    = $google->place_detail($reference);
+    my $api_key  = 'Your_API_Key';
+    my $sensor   = 'true';
+    my $place_id = 'Place_ID';
+    my $place    = WWW::Google::Places->new($api_key, $sensor);
+    my $details  = $place->details({ placeid => $place_id });
 
 =cut
 
 sub details {
     my ($self, $values) = @_;
 
-    my $params = [qw(reference)];
-    return $self->_result('details', $params, $values);
+    my $params   = { placeid => 1 };
+    my $url      = $self->_url('details', $params, $values);
+    my $response = $self->_get($url);
+
+    return from_json($response->{content});
 }
 
-=head2 place_checkins()
-
-It indicates that a user has checked in to that Place.Check-in activity from your
-application is reflected in the Place search results that are returned -  popular
-establishments are ranked more highly making it easy for your user to find likely
-matches.As check-in activity changes over time so does the ranking of each Place.
-
-    +-----------+--------------------------------------------------------------------------------+
-    | Key       | Description                                                                    |
-    +-----------+--------------------------------------------------------------------------------+
-    | reference | A textual identifier that uniquely identifies a place, returned from a Place   |
-    |           | search request. This must be provided.                                         |
-    +-----------+--------------------------------------------------------------------------------+
-
-    use strict; use warnings;
-    use WWW::Google::Places;
-
-    my ($api_key, $sensor, $reference, $google, $checkins);
-    $api_key   = 'Your_API_Key';
-    $sensor    = 'true';
-    $reference = 'Place_reference';
-    $google    = WWW::Google::Places->new($api_key, $sensor);
-    $checkins  = $google->place_checkins($reference);
-
-=cut
-
-sub check_in {
-    my ($self, $values) = @_;
-
-    my $params = [qw(reference)];
-    return $self->_result('check-in', $params, $values);
-}
-
-=head2 add_place()
+=head2 add()
 
 Add a place to be available for any future search place request.
 
@@ -388,13 +351,28 @@ Add a place to be available for any future search place request.
     use strict; use warnings;
     use WWW::Google::Places;
 
-    my ($api_key, $sensor, $google, $status);
-    $api_key = 'Your_API_Key';
-    $sensor  = 'true';
-    $google  = WWW::Google::Places->new($api_key, $sensor);
-    $stetus  = $google->add_place('location'=>'-33.8669710,151.1958750', accuracy=>40, name=>'Google Shoes!');
+    my $api_key = 'Your_API_Key';
+    my $sensor  = 'true';
+    my $place   = WWW::Google::Places->new($api_key, $sensor);
+    my $status  = $google->add('location'=>'-33.8669710,151.1958750', accuracy=>40, name=>'Google Shoes!');
 
-=head2 delete_place()
+=cut
+
+sub add {
+    my ($self, $values) = @_;
+
+    my $params   = { location => 1, name => 1, types => 1, accuracy => 1,
+                     address => 0, website => 0, language => 0, phone_number => 0 };
+    my $url      = $self->_url('add');
+    my $content  = $self->_content($params, $values);
+    my $headers  = { 'Host' => 'maps.googleapis.com' };
+    my $response = $self->_post($url, $headers, $content);
+
+    return from_json($response->{content});
+}
+
+
+=head2 delete()
 
 Delete a place as given reference. Place can  be  deleted by the same application
 that has added it in the first place.Once moderated and added into the full Place
@@ -402,46 +380,84 @@ Search results, a Place  can  no longer  be deleted. Places that are not accepte
 by  the  moderation  process  will continue to be visible to the application that
 submitted them.
 
-    +-----------+--------------------------------------------------------------------------------+
-    | Key       | Description                                                                    |
-    +-----------+--------------------------------------------------------------------------------+
-    | reference | A textual identifier that uniquely identifies a place, returned from a Place   |
-    |           | search request. This must be provided.                                         |
-    +-----------+--------------------------------------------------------------------------------+
+
+    +-----------+-------------------------------------------------------------------------------------+
+    | Key       | Description                                                                         |
+    +-----------+-------------------------------------------------------------------------------------+
+    | placeid   | A textual identifier that uniquely identifies a place, returned from a Place Search |
+    +-----------+-------------------------------------------------------------------------------------+
 
     use strict; use warnings;
     use WWW::Google::Places;
 
-    my ($api_key, $sensor, $reference, $google, $status);
-    $api_key   = 'Your_API_Key';
-    $sensor    = 'true';
-    $reference = 'Place_reference';
-    $google    = WWW::Google::Places->new($api_key, $sensor);
-    $status    = $google->delete_place($reference);
+    my $api_key  = 'Your_API_Key';
+    my $sensor   = 'true';
+    my $place_id = 'Place_ID';
+    my $place    = WWW::Google::Places->new($api_key, $sensor);
+    my $status   = $place->delete({ placeid => $place_id });
 
 =cut
 
-sub _url {
-    my ($self, $type) = @_;
+sub delete {
+    my ($self, $values) = @_;
 
-    return sprintf("%s/%s/%s?key=%s&sensor=%s&language=%s",
-                   $BASE_URL, $type, $self->output, $self->api_key,
-                   $self->sensor, $self->language);
+    my $params   = { placeid => 1 };
+    my $url      = $self->_url('delete');
+    my $content  = $self->_content($params, $values);
+    my $headers  = { 'Host' => 'maps.googleapis.com' };
+    my $response = $self->_post($url, $headers, $content);
+
+    return from_json($response->{content});
 }
 
-sub _result {
+#
+# PRIVATE METHODS
+#
+
+sub _url {
     my ($self, $type, $params, $values) = @_;
 
     validate($params, $values);
 
-    my $url = $self->_url($type);
-    foreach my $key (@$params) {
+    my $url = sprintf("%s/%s/%s?key=%s&sensor=%s&language=%s",
+                      $BASE_URL, $type, $self->output, $self->api_key,
+                      $self->sensor, $self->language);
+
+    foreach my $key (keys %$params) {
 	my $_key = "&$key=%" . $FIELDS->{$key}->{type};
 	$url .= sprintf($_key, $values->{$key}) if defined $values->{$key};
     }
 
-    my $response = $self->_get($url);
-    return from_json($response->{content});
+    return $url;
+}
+
+sub _content {
+    my ($self, $params, $values) = @_;
+
+    my $data = {};
+    foreach my $key (keys %$params) {
+        if ($key eq 'location') {
+            my ($lat, $lng) = split /\,/, $values->{$key};
+            $data->{$key} = {'lat' => _handle_number($lat), 'lng' => _handle_number($lng)};
+        }
+        elsif ($key eq 'types') {
+            $data->{$key} = [ $values->{$key} ];
+        }
+        elsif ($FIELDS->{$key}->{type} eq 'd') {
+            $data->{$key} = _handle_number($values->{$key});
+        }
+        else {
+            $data->{$key} = $values->{$key};
+        }
+    };
+
+    return to_json($data);
+}
+
+sub _handle_number {
+    my ($number) = @_;
+
+    return ($number =~ m/^\-?[\d]+(\.[\d]+)?$/)?($number*1):$number;
 }
 
 =head1 AUTHOR

@@ -69,10 +69,13 @@ Version 0.05
 =cut
 
 our $FIELDS = {
-    'location' => { optional => 0, check => $_check_location, type => 's' },
-    'radius'   => { optional => 0, check => $_check_num,      type => 'd' },
-    'name'     => { optional => 1, check => $_check_str,      type => 's' },
-    'types'    => { optional => 1, check => $_check_types,    type => 's' },
+    'location' => { check => $_check_location, type => 's' },
+    'radius'   => { check => $_check_num,      type => 'd' },
+    'name'     => { check => $_check_str,      type => 's' },
+    'types'    => { check => $_check_types,    type => 's' },
+    'placeid ' => { check => $_check_str,      type => 's' },
+    'accuracy' => { check => $_check_num,      type => 'd' },
+    'website'  => { check => $_check_str,      type => 's' },
 };
 
 sub validate {
@@ -82,15 +85,15 @@ sub validate {
 
     die "ERROR: Parameters have to be hash ref" unless (ref($values) eq 'HASH');
 
-    foreach my $field (@{$fields}) {
+    foreach my $field (keys %{$fields}) {
         die "ERROR: Invalid param received [$field]"
             unless (exists $FIELDS->{$field});
 
         die "ERROR: Missing mandatory param [$field]"
-            if (!$FIELDS->{$field}->{optional} && !exists $FIELDS->{$field});
+            if ($fields->{$field} && !exists $values->{$field});
 
         die "ERROR: Undefined mandatory param [$field]"
-            if (!$FIELDS->{$field}->{optional} && !defined $FIELDS->{$field});
+            if ($fields->{$field} && !defined $values->{$field});
 
 	$FIELDS->{$field}->{check}->($values->{$field})
             if defined $values->{$field};
