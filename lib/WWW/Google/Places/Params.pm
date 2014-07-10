@@ -11,52 +11,8 @@ use Data::Dumper;
 
 @EXPORT_OK = qw(validate $FIELDS);
 
-use WWW::Google::Places::CONSTANTS qw($PLACE_TYPES $MORE_PLACE_TYPES);
+use WWW::Google::Places::CONSTANTS qw($check_location $check_types $check_num $check_str);
 
-my $_check_location = sub {
-    my ($location) = @_;
-
-    my ($latitude, $longitude);
-    die "ERROR: Invalid location type data found [$_]"
-        unless (($location =~ /\,/)
-                &&
-                ((($latitude, $longitude) = split/\,/,$location,2)
-                 &&
-                 (($latitude =~ /^\-?\d+\.?\d+$/)
-                  &&
-                  ($longitude =~ /^\-?\d+\.?\d+$/)
-                 )
-                ))
-};
-
-my $_check_types = sub {
-    my ($types) = @_;
-
-    my @types = ();
-    die "ERROR: Invalid search type data [$types]"
-        unless (defined($types)
-                &&
-                (@types = split/\|/,$types)
-                &&
-                (map { exists($PLACE_TYPES->{lc($_)})
-                           ||
-                           exists($MORE_PLACE_TYPES->{lc($_)})
-                 } @types ));
-};
-
-my $_check_num = sub {
-    my ($num) = @_;
-
-    die "ERROR: Invalid NUM data type [$num]"
-        unless (defined $num && $num =~ /^\d+$/);
-};
-
-my $_check_str = sub {
-    my ($str) = @_;
-
-    die "ERROR: Invalid STR data type [$str]"
-        if (defined $str && $str =~ /^\d+$/);
-};
 
 =head1 NAME
 
@@ -69,13 +25,13 @@ Version 0.05
 =cut
 
 our $FIELDS = {
-    'location' => { check => $_check_location, type => 's' },
-    'radius'   => { check => $_check_num,      type => 'd' },
-    'name'     => { check => $_check_str,      type => 's' },
-    'types'    => { check => $_check_types,    type => 's' },
-    'placeid ' => { check => $_check_str,      type => 's' },
-    'accuracy' => { check => $_check_num,      type => 'd' },
-    'website'  => { check => $_check_str,      type => 's' },
+    'location' => { check => $check_location, type => 's' },
+    'radius'   => { check => $check_num,      type => 'd' },
+    'name'     => { check => $check_str,      type => 's' },
+    'types'    => { check => $check_types,    type => 's' },
+    'placeid ' => { check => $check_str,      type => 's' },
+    'accuracy' => { check => $check_num,      type => 'd' },
+    'website'  => { check => $check_str,      type => 's' },
 };
 
 sub validate {

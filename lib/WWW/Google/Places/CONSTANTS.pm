@@ -7,8 +7,10 @@ use strict; use warnings;
 use parent 'Exporter';
 
 our @EXPORT_OK = qw(
-    $PLACE_TYPES
-    $MORE_PLACE_TYPES
+    $check_location
+    $check_types
+    $check_num
+    $check_str
     $STATUS
 );
 
@@ -151,6 +153,51 @@ our $STATUS = {
     'REQUEST_DENIED'   => 'Your request was denied, generally because of lack of a sensor parameter.',
     'INVALID_REQUEST'  => 'A required query parameter (location or radius) is missing.',
     'UNKNOWN_ERROR'    => 'A server-side error; trying again may be successful.',
+};
+
+our $check_location = sub {
+    my ($location) = @_;
+
+    my ($latitude, $longitude);
+    die "ERROR: Invalid location type data found [$_]"
+        unless (($location =~ /\,/)
+                &&
+                ((($latitude, $longitude) = split/\,/,$location,2)
+                 &&
+                 (($latitude =~ /^\-?\d+\.?\d+$/)
+                  &&
+                  ($longitude =~ /^\-?\d+\.?\d+$/)
+                 )
+                ))
+};
+
+our $check_types = sub {
+    my ($types) = @_;
+
+    my @types = ();
+    die "ERROR: Invalid search type data [$types]"
+        unless (defined($types)
+                &&
+                (@types = split/\|/,$types)
+                &&
+                (map { exists($PLACE_TYPES->{lc($_)})
+                           ||
+                           exists($MORE_PLACE_TYPES->{lc($_)})
+                 } @types ));
+};
+
+our $check_num = sub {
+    my ($num) = @_;
+
+    die "ERROR: Invalid NUM data type [$num]"
+        unless (defined $num && $num =~ /^\d+$/);
+};
+
+our $check_str = sub {
+    my ($str) = @_;
+
+    die "ERROR: Invalid STR data type [$str]"
+        if (defined $str && $str =~ /^\d+$/);
 };
 
 =head1 NAME
