@@ -9,6 +9,8 @@ use Data::Dumper;
 use WWW::Google::UserAgent;
 use WWW::Google::DataTypes qw($Boolean $Output $Language);
 use WWW::Google::Places::Params qw(validate $FIELDS);
+use WWW::Google::Places::SearchResult;
+use WWW::Google::Places::DetailResult;
 
 use Moo;
 use namespace::clean;
@@ -263,7 +265,8 @@ can  get it for FREE from Google.
 
 =head2 search()
 
-Searches place.
+Returns a list of objects of L<WWW::Google::Places::SearchResult>.
+
 
     +----------+--------------------------------------------------------------------------------+
     | Key      | Description                                                                    |
@@ -296,14 +299,15 @@ sub search {
     my $params   = { location => 1, radius => 1, types => 0, name => 0 };
     my $url      = $self->_url('search', $params, $values);
     my $response = $self->_get($url);
+    my $contents = from_json($response->{content});
 
-    return from_json($response->{content});
+    my @results  = map { WWW::Google::Places::SearchResult->new($_) } @{$contents->{results}};
+    return @results;
 }
 
 =head2 details()
 
-A Place Detail request returns more comprehensive information about the indicated
-place  such as its complete address, phone number, user rating, etc.
+Returns an object of L<WWW::Google::Places::DetailResult>
 
     +-----------+-------------------------------------------------------------------------------------+
     | Key       | Description                                                                         |
@@ -328,13 +332,14 @@ sub details {
     my $params   = { placeid => 1 };
     my $url      = $self->_url('details', $params, $values);
     my $response = $self->_get($url);
+    my $contents = from_json($response->{content});
 
-    return from_json($response->{content});
+    return WWW::Google::Places::DetailResult->new($contents->{result});
 }
 
 =head2 add()
 
-Add a place to be available for any future search place request.
+Add a place to be available for any future search place request. Returnss place id.
 
     +----------+--------------------------------------------------------------------------------+
     | Key      | Description                                                                    |
@@ -367,8 +372,9 @@ sub add {
     my $content  = $self->_content($params, $values);
     my $headers  = { 'Host' => 'maps.googleapis.com' };
     my $response = $self->_post($url, $headers, $content);
+    my $contents = from_json($response->{content});
 
-    return from_json($response->{content});
+    return $contents->{place_id};
 }
 
 
@@ -417,15 +423,17 @@ sub delete {
 sub _url {
     my ($self, $type, $params, $values) = @_;
 
-    validate($params, $values);
-
     my $url = sprintf("%s/%s/%s?key=%s&sensor=%s&language=%s",
                       $BASE_URL, $type, $self->output, $self->api_key,
                       $self->sensor, $self->language);
 
-    foreach my $key (keys %$params) {
-	my $_key = "&$key=%" . $FIELDS->{$key}->{type};
-	$url .= sprintf($_key, $values->{$key}) if defined $values->{$key};
+    if (defined $params && defined $values) {
+        validate($params, $values);
+
+        foreach my $key (keys %$params) {
+            my $_key = "&$key=%" . $FIELDS->{$key}->{type};
+            $url .= sprintf($_key, $values->{$key}) if defined $values->{$key};
+        }
     }
 
     return $url;
@@ -436,6 +444,17 @@ sub _content {
 
     my $data = {};
     foreach my $key (keys %$params) {
+        if ($key eq 'language') {
+            if (defined $values->{$key}) {
+                $data->{$key} = $values->{$key};
+            }
+            else {
+                $data->{$key} = $self->language;
+            }
+        }
+
+        next unless defined $values->{$key};
+
         if ($key eq 'location') {
             my ($lat, $lng) = split /\,/, $values->{$key};
             $data->{$key} = {'lat' => _handle_number($lat), 'lng' => _handle_number($lng)};
