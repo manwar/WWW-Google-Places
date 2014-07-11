@@ -167,8 +167,10 @@ sub check_location  {
     my ($location) = @_;
 
     my ($latitude, $longitude);
-    die "ERROR: Invalid location type data found [$_]"
-        unless (($location =~ /\,/)
+    die "ERROR: Invalid location type data found '$location'"
+        unless (defined $location
+                &&
+                ($location =~ /\,/)
                 &&
                 ((($latitude, $longitude) = split/\,/,$location,2)
                  &&
@@ -207,12 +209,14 @@ our $FIELDS = {
     'radius'       => { check => sub { check_num(@_)      }, type => 'd' },
     'name'         => { check => sub { check_str(@_)      }, type => 's' },
     'types'        => { check => sub { check_types(@_)    }, type => 's' },
+    'place_id'     => { check => sub { check_str(@_)      }, type => 's' },
     'placeid'      => { check => sub { check_str(@_)      }, type => 's' },
     'accuracy'     => { check => sub { check_num(@_)      }, type => 'd' },
     'website'      => { check => sub { check_str(@_)      }, type => 's' },
     'phone_number' => { check => sub { check_str(@_)      }, type => 's' },
     'language'     => { check => sub { check_str(@_)      }, type => 's' },
     'address'      => { check => sub { check_str(@_)      }, type => 's' },
+    'reference'    => { check => sub { check_str(@_)      }, type => 's' },
 };
 
 sub validate {
@@ -223,13 +227,13 @@ sub validate {
     die "ERROR: Parameters have to be hash ref" unless (ref($values) eq 'HASH');
 
     foreach my $field (keys %{$fields}) {
-        die "ERROR: Invalid param received [$field]"
+        die "ERROR: Received invalid param: $field"
             unless (exists $FIELDS->{$field});
 
-        die "ERROR: Missing mandatory param [$field]"
+        die "ERROR: Missing mandatory param: $field"
             if ($fields->{$field} && !exists $values->{$field});
 
-        die "ERROR: Undefined mandatory param [$field]"
+        die "ERROR: Received undefined mandatory param: $field"
             if ($fields->{$field} && !defined $values->{$field});
 
 	$FIELDS->{$field}->{check}->($values->{$field})

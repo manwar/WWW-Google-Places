@@ -249,7 +249,7 @@ can  get it for FREE from Google.
     |           | key from the Google APIs console. This must be provided.                             |
     | sensor    | Indicates whether or not the Place request came from a device using a location sensor|
     |           | (e.g. a GPS) to determine the location sent in this request. This value must be      |
-    |           | either true or false. This must be provided.                                         |
+    |           | either true or false. Default is false.                                              |
     | language  | The language code, indicating in which language the results should be returned. The  |
     |           | default is en.                                                                       |
     +-----------+--------------------------------------------------------------------------------------+
@@ -258,8 +258,7 @@ can  get it for FREE from Google.
     use WWW::Google::Places;
 
     my $api_key = 'Your_API_Key';
-    my $sensor  = 'true';
-    my $place   = WWW::Google::Places->new(api_key=>$api_key, sensor=>$sensor, language=>'en');
+    my $place   = WWW::Google::Places->new(api_key => $api_key);
 
 =head1 METHODS
 
@@ -287,9 +286,8 @@ Returns a list of objects of L<WWW::Google::Places::SearchResult>.
     use WWW::Google::Places;
 
     my $api_key = 'Your_API_Key';
-    my $sensor  = 'true';
-    my $place   = WWW::Google::Places->new($api_key, $sensor);
-    my $results = $google->search_place(location=>'-33.8670522,151.1957362', radius=>500);
+    my $place   = WWW::Google::Places->new(api_key => $api_key);
+    my $results = $place->search(location=>'-33.8670522,151.1957362', radius=>500);
 
 =cut
 
@@ -305,6 +303,13 @@ sub search {
     return @results;
 }
 
+sub search_place {
+    my ($self, %values) = @_;
+
+    warn "DEPRECATED method, please use search()";
+    $self->search(\%values);
+}
+
 =head2 details()
 
 Returns an object of L<WWW::Google::Places::DetailResult>
@@ -318,23 +323,38 @@ Returns an object of L<WWW::Google::Places::DetailResult>
     use strict; use warnings;
     use WWW::Google::Places;
 
-    my $api_key  = 'Your_API_Key';
-    my $sensor   = 'true';
-    my $place_id = 'Place_ID';
-    my $place    = WWW::Google::Places->new($api_key, $sensor);
-    my $details  = $place->details({ placeid => $place_id });
+    my $api_key = 'Your_API_Key';
+    my $placeid = 'Place_ID';
+    my $place   = WWW::Google::Places->new(api_key => $api_key);
+    my $details = $place->details($placeid);
 
 =cut
 
 sub details {
-    my ($self, $values) = @_;
+    my ($self, $placeid) = @_;
 
     my $params   = { placeid => 1 };
-    my $url      = $self->_url('details', $params, $values);
+    my $url      = $self->_url('details', $params, { placeid => $placeid });
     my $response = $self->_get($url);
     my $contents = from_json($response->{content});
 
     return WWW::Google::Places::DetailResult->new($contents->{result});
+}
+
+sub place_detail {
+    my ($self, $reference) = @_;
+
+    warn "DEPRECATED method, please use details(). Also key 'reference' is deprecated, use placeid";
+    my $params   = { reference => 1 };
+    my $url      = $self->_url('details', $params, { reference => $reference });
+    my $response = $self->_get($url);
+    my $contents = from_json($response->{content});
+
+    return WWW::Google::Places::DetailResult->new($contents->{result});
+}
+
+sub place_checkins {
+    warn "Google API no longer supports the feature."
 }
 
 =head2 add()
@@ -357,9 +377,8 @@ Add a place to be available for any future search place request. Returnss place 
     use WWW::Google::Places;
 
     my $api_key = 'Your_API_Key';
-    my $sensor  = 'true';
-    my $place   = WWW::Google::Places->new($api_key, $sensor);
-    my $status  = $google->add('location'=>'-33.8669710,151.1958750', accuracy=>40, name=>'Google Shoes!');
+    my $place   = WWW::Google::Places->new(api_key => $api_key);
+    my $status  = $place->add('location'=>'-33.8669710,151.1958750', accuracy=>40, name=>'Google Shoes!');
 
 =cut
 
@@ -377,6 +396,12 @@ sub add {
     return $contents->{place_id};
 }
 
+sub add_place {
+    my ($self, %values) = @_;
+
+    warn "DEPRECATED method, please use add()";
+    $self->add(\%values);
+}
 
 =head2 delete()
 
@@ -390,26 +415,38 @@ submitted them.
     +-----------+-------------------------------------------------------------------------------------+
     | Key       | Description                                                                         |
     +-----------+-------------------------------------------------------------------------------------+
-    | placeid   | A textual identifier that uniquely identifies a place, returned from a Place Search |
+    | place_id  | A textual identifier that uniquely identifies a place, returned from a Place Search |
     +-----------+-------------------------------------------------------------------------------------+
 
     use strict; use warnings;
     use WWW::Google::Places;
 
     my $api_key  = 'Your_API_Key';
-    my $sensor   = 'true';
     my $place_id = 'Place_ID';
-    my $place    = WWW::Google::Places->new($api_key, $sensor);
-    my $status   = $place->delete({ placeid => $place_id });
+    my $place    = WWW::Google::Places->new(api_key => $api_key);
+    my $status   = $place->delete($place_id);
 
 =cut
 
 sub delete {
-    my ($self, $values) = @_;
+    my ($self, $place_id) = @_;
 
-    my $params   = { placeid => 1 };
+    my $params   = { place_id => 1 };
     my $url      = $self->_url('delete');
-    my $content  = $self->_content($params, $values);
+    my $content  = $self->_content($params, { place_id => $place_id });
+    my $headers  = { 'Host' => 'maps.googleapis.com' };
+    my $response = $self->_post($url, $headers, $content);
+
+    return from_json($response->{content});
+}
+
+sub delete_place {
+    my ($self, $reference) = @_;
+
+    warn "DEPRECATED method, please use delete(). Also key 'reference' is deprecated, use place_id";
+    my $params   = { reference => 1 };
+    my $url      = $self->_url('delete');
+    my $content  = $self->_content($params, { reference => $reference });
     my $headers  = { 'Host' => 'maps.googleapis.com' };
     my $response = $self->_post($url, $headers, $content);
 
@@ -441,6 +478,8 @@ sub _url {
 
 sub _content {
     my ($self, $params, $values) = @_;
+
+    validate($params, $values);
 
     my $data = {};
     foreach my $key (keys %$params) {
