@@ -7,8 +7,8 @@ use JSON;
 use Data::Dumper;
 
 use WWW::Google::UserAgent;
-use WWW::Google::DataTypes qw($Boolean $Output $Language);
-use WWW::Google::Places::Params qw(validate $FIELDS);
+use WWW::Google::DataTypes qw($TrueOrFalse $XmlOrJson);
+use WWW::Google::Places::Params qw(validate $Language $FIELDS);
 use WWW::Google::Places::SearchResult;
 use WWW::Google::Places::DetailResult;
 
@@ -18,9 +18,9 @@ extends 'WWW::Google::UserAgent';
 
 our $BASE_URL = 'https://maps.googleapis.com/maps/api/place';
 
-has 'sensor'   => (is => 'ro', isa => $Boolean,  default => sub { return 'false' });
-has 'output'   => (is => 'ro', isa => $Output,   default => sub { return 'json'  });
-has 'language' => (is => 'ro', isa => $Language, default => sub { return 'en'    });
+has 'sensor'   => (is => 'ro', isa => $TrueOrFalse, default => sub { return 'false' });
+has 'output'   => (is => 'ro', isa => $XmlOrJson,   default => sub { return 'json'  });
+has 'language' => (is => 'ro', isa => $Language,    default => sub { return 'en'    });
 
 =head1 NAME
 
@@ -296,7 +296,7 @@ sub search {
 
     my $params   = { location => 1, radius => 1, types => 0, name => 0 };
     my $url      = $self->_url('search', $params, $values);
-    my $response = $self->_get($url);
+    my $response = $self->get($url);
     my $contents = from_json($response->{content});
 
     my @results  = map { WWW::Google::Places::SearchResult->new($_) } @{$contents->{results}};
@@ -335,7 +335,7 @@ sub details {
 
     my $params   = { placeid => 1 };
     my $url      = $self->_url('details', $params, { placeid => $placeid });
-    my $response = $self->_get($url);
+    my $response = $self->get($url);
     my $contents = from_json($response->{content});
 
     return WWW::Google::Places::DetailResult->new($contents->{result});
@@ -347,7 +347,7 @@ sub place_detail {
     warn "DEPRECATED method, please use details(). Also key 'reference' is deprecated, use placeid";
     my $params   = { reference => 1 };
     my $url      = $self->_url('details', $params, { reference => $reference });
-    my $response = $self->_get($url);
+    my $response = $self->get($url);
     my $contents = from_json($response->{content});
 
     return WWW::Google::Places::DetailResult->new($contents->{result});
@@ -390,7 +390,7 @@ sub add {
     my $url      = $self->_url('add');
     my $content  = $self->_content($params, $values);
     my $headers  = { 'Host' => 'maps.googleapis.com' };
-    my $response = $self->_post($url, $headers, $content);
+    my $response = $self->post($url, $headers, $content);
     my $contents = from_json($response->{content});
 
     return $contents->{place_id};
@@ -435,7 +435,7 @@ sub delete {
     my $url      = $self->_url('delete');
     my $content  = $self->_content($params, { place_id => $place_id });
     my $headers  = { 'Host' => 'maps.googleapis.com' };
-    my $response = $self->_post($url, $headers, $content);
+    my $response = $self->post($url, $headers, $content);
 
     return from_json($response->{content});
 }
@@ -448,7 +448,7 @@ sub delete_place {
     my $url      = $self->_url('delete');
     my $content  = $self->_content($params, { reference => $reference });
     my $headers  = { 'Host' => 'maps.googleapis.com' };
-    my $response = $self->_post($url, $headers, $content);
+    my $response = $self->post($url, $headers, $content);
 
     return from_json($response->{content});
 }
