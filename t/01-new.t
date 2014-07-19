@@ -2,7 +2,7 @@
 
 use strict; use warnings;
 use WWW::Google::Places;
-use Test::More tests => 6;
+use Test::More tests => 5;
 
 my ($api_key, $sensor, $google);
 $api_key = 'Your_API_Key';
@@ -16,9 +16,6 @@ like($@, qr/Missing required arguments: api_key/);
 
 eval { $google = WWW::Google::Places->new({ api_key => $api_key, language => 'en', sensor => 'falsee' }); };
 like($@, qr/isa check for "sensor" failed/);
-
-eval { $google = WWW::Google::Places->new({api_key=>$api_key, sensor=>'false', output=>'jsoon'}); };
-like($@, qr/isa check for "output" failed/);
 
 eval { $google = WWW::Google::Places->new({api_key=>$api_key, sensor=>'false', language=>'enn'}); };
 like($@, qr/isa check for "language" failed/);
