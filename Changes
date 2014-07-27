@@ -1,5 +1,9 @@
 Revision history for WWW-Google-Places
 
+0.06    Sun Jul 27 11:51:25 2014
+        - Made use of WWW::Google::UserAgent v0.02
+        - Deleted Build.PL
+
 0.05    Sun Jul 07 16:27:20 2014
         - Restructured to use the common library WWW::Google::UserAgent
 

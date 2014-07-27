@@ -1,13 +1,13 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION = '0.05';
+$WWW::Google::Places::VERSION = '0.06';
 
 use 5.006;
 use JSON;
 use Data::Dumper;
 
 use WWW::Google::UserAgent;
-use WWW::Google::DataTypes qw($TrueOrFalse $XmlOrJson);
+use WWW::Google::UserAgent::DataTypes qw($TrueOrFalse $XmlOrJson);
 use WWW::Google::Places::Params qw(validate $Language $FIELDS);
 use WWW::Google::Places::SearchResult;
 use WWW::Google::Places::DetailResult;
@@ -28,7 +28,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.05
+Version 0.06
 
 =head1 DESCRIPTION
 

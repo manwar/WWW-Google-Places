@@ -1,6 +1,6 @@
 package WWW::Google::Places::DetailResult;
 
-$WWW::Google::Places::DetailResult::VERSION = '0.05';
+$WWW::Google::Places::DetailResult::VERSION = '0.06';
 
 use 5.006;
 use Moo;
@@ -35,7 +35,7 @@ WWW::Google::Places::DetailResult - Placeholder for detail Search Result for WWW
 
 =head1 VERSION
 
-Version 0.05
+Version 0.06
 
 =head1 AUTHOR
 
