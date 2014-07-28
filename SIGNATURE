@@ -14,15 +14,15 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 0184eaaed55d381215bc190919798f536b80943e Changes
+SHA1 d08b4eb81dea14ffd9518ae90ba3d6f6a0b67e94 Changes
 SHA1 db87c9b784f3054c5376432e5fb223dae20f8219 MANIFEST
 SHA1 5f29cdcbfacb9c46ac155fff9844aceeb064aef1 MANIFEST.SKIP
-SHA1 1d71d15a41a6b344bffe90df3ddca237777bfdfe Makefile.PL
+SHA1 002e992edf121a4809fa158f37b15364eca1846f Makefile.PL
 SHA1 7131266350215f10a8dc9809831e26145d97c646 README
-SHA1 31debee6d3b375028351f77fbe76d5edd46a9bb1 lib/WWW/Google/Places.pm
-SHA1 3d4f54e71da7d4543006518df79bbd012cc69467 lib/WWW/Google/Places/DetailResult.pm
-SHA1 f19de4734cd64d840669ada7d0d2745fad60b30c lib/WWW/Google/Places/Params.pm
-SHA1 cc1d1c9b5c5c0da706d6aad829c223745f0064d0 lib/WWW/Google/Places/SearchResult.pm
+SHA1 24a4248ea2a3d4711b9adc1a5a7b4fe72c12054d lib/WWW/Google/Places.pm
+SHA1 0a48ead99f0a23a498ee96eff87927ebd4b4db95 lib/WWW/Google/Places/DetailResult.pm
+SHA1 4712ebde7bed5070f31ef5b742ca74818e5a8765 lib/WWW/Google/Places/Params.pm
+SHA1 b1cc960f68cfe65b4abf35da5240d102ccebf26b lib/WWW/Google/Places/SearchResult.pm
 SHA1 ba0327e0d6a76fed98253864c34d54e43f737157 t/00-load.t
 SHA1 3c4c3acf13c828bcbbe4edec324c75fc1abf7c17 t/01-new.t
 SHA1 456f8dfa240edddf00693cff70d2afd52a1f2371 t/02-search_place.t
@@ -33,11 +33,11 @@ SHA1 a572bbed348e70b106f01fa02fee8b8edd6735d5 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iQEcBAEBAgAGBQJT1NqYAAoJENoXJXWo7C/pRY4H/1g1v1QLIIF9kqIeMcmxrCUu
-JlzjED4mYzxw5yppi+vh+w8eFU0A/xLwsr2gCscHa9Z9VRtlUAhJ2I48Hc8ZakRi
-tFiJY+eointvNpbBq2OTaDinkZvVpMEy4hzYilopv6YyXbCq9wKhep9Yw5oF1nh1
-edmn0Smvl7uAqBpnVifPzE+P12IQgQhAr4/ScVMFh4JbdiHYmYthsw5Em0tIrUTs
-IM4C9nV4tJ/73PAG9+3gLohYEIohUI0HZLLvCCbjSeX1RUJE0xVUpLmzOlhovXs8
-0pTFcEaRPXsHhzcDzC1wp9F0VZcG5xIqU4l70Dd11qGoJAqRfXPWTP8eyVYpMLA=
-=q0Vi
+iQEcBAEBAgAGBQJT1lIWAAoJENoXJXWo7C/prxsH/3S7nylOhNIaglwNRUxR7ZMy
+TUkjO1eNV3wu/pExybQjdvGXra3KPy3DvWVDWU12l8ueVDwdsW+FsZ52zzF0YXCD
+WkCabQqP0hL3n4wBxShfGGPDugx4YzTudCQyKZFAHhxfbLgBpfhKT1lsXac4lM09
+AoKY8KdVa5PpjV1VVPbur/7uohd5Ggte847pSQRRQO4iYYmM/vJ68n23J2BtAbmi
+s9wy2vKs69JEpG1Vd5cqwi7m6IlcSt0MMHoM3r0FiwmtHaBSRusqybVvppc5Jfrm
+yzgEWv47QujtH3QYaSGKI5nSbjaKBtSTshDyCI1tvzEFbpATr+j+xR2A5OffQ1c=
+=guHP
 -----END PGP SIGNATURE-----

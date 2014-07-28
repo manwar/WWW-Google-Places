@@ -21,7 +21,7 @@ WriteMakefile(
         'JSON'                   => 0,
         'Moo'                    => 0,
         'namespace::clean'       => 0,
-        'WWW::Google::UserAgent' => '0.02',
+        'WWW::Google::UserAgent' => '0.03',
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'WWW-Google-Places-*' },

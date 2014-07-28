@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION = '0.06';
+$WWW::Google::Places::VERSION = '0.07';
 
 use 5.006;
 use JSON;
@@ -28,7 +28,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.06
+Version 0.07
 
 =head1 DESCRIPTION
 
