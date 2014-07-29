@@ -1,6 +1,6 @@
 package WWW::Google::Places::SearchResult;
 
-$WWW::Google::Places::SearchResult::VERSION = '0.08';
+$WWW::Google::Places::SearchResult::VERSION = '0.09';
 
 use 5.006;
 use Moo;
@@ -20,7 +20,7 @@ WWW::Google::Places::SearchResult - Placeholder for Search Result for WWW::Googl
 
 =head1 VERSION
 
-Version 0.08
+Version 0.09
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 package WWW::Google::Places::Params;
 
-$WWW::Google::Places::Params::VERSION = '0.08';
+$WWW::Google::Places::Params::VERSION = '0.09';
 
 use 5.006;
 use strict; use warnings;
@@ -18,7 +18,7 @@ WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
 
 =head1 VERSION
 
-Version 0.08
+Version 0.09
 
 =cut
 
