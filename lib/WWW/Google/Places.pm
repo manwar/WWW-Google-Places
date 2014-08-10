@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION = '0.09';
+$WWW::Google::Places::VERSION = '0.10';
 
 use 5.006;
 use JSON;
@@ -28,7 +28,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.09
+Version 0.10
 
 =head1 DESCRIPTION
 
@@ -559,7 +559,7 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2014 Mohammad S Anwar.
+Copyright (C) 2011 - 2014 Mohammad S Anwar.
 
 This  program  is  free software; you can redistribute it and/or modify it under
 the  terms  of the the Artistic License (2.0). You may obtain a copy of the full

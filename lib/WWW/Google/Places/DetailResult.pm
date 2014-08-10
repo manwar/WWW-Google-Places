@@ -1,6 +1,6 @@
 package WWW::Google::Places::DetailResult;
 
-$WWW::Google::Places::DetailResult::VERSION = '0.09';
+$WWW::Google::Places::DetailResult::VERSION = '0.10';
 
 use 5.006;
 use Moo;
@@ -35,7 +35,7 @@ WWW::Google::Places::DetailResult - Placeholder for detail Search Result for WWW
 
 =head1 VERSION
 
-Version 0.09
+Version 0.10
 
 =head1 AUTHOR
 
@@ -78,7 +78,7 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2014 Mohammad S Anwar.
+Copyright (C) 2011 - 2014 Mohammad S Anwar.
 
 This  program  is  free software; you can redistribute it and/or modify it under
 the  terms  of the the Artistic License (2.0). You may obtain a copy of the full

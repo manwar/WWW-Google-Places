@@ -1,5 +1,9 @@
 Revision history for WWW-Google-Places
 
+0.10    Sun Aug 10 01:16:00 2014
+        - Tidied up README file.
+        - Updated Copyright year details.
+
 0.09    Tue Jul 29 15:35:20 2014
         - Updated Makefile.PL to make the pre-requisite WWW::Google::UserAgent v0.07
 
