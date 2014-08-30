@@ -25,4 +25,15 @@ WriteMakefile(
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'WWW-Google-Places-*' },
+    (eval { ExtUtils::MakeMaker->VERSION(6.46) } ? (META_MERGE => {
+        'meta-spec' => { version => 2 },
+        resources => {
+            repository => {
+                type => 'git',
+                url  => 'https://github.com/Manwar/WWW-Google-Places.git',
+                web  => 'https://github.com/Manwar/WWW-Google-Places',
+            },
+        }})
+     : ()
+    ),
 );

@@ -1,6 +1,6 @@
 package WWW::Google::Places::Params;
 
-$WWW::Google::Places::Params::VERSION = '0.10';
+$WWW::Google::Places::Params::VERSION = '0.11';
 
 use 5.006;
 use strict; use warnings;
@@ -18,7 +18,7 @@ WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
 
 =head1 VERSION
 
-Version 0.10
+Version 0.11
 
 =cut
 
@@ -166,6 +166,10 @@ sub validate {
 =head1 AUTHOR
 
 Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
+
+=head1 REPOSITORY
+
+L<https://github.com/Manwar/WWW-Google-Places>
 
 =head1 BUGS
 

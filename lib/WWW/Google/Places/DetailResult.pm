@@ -1,6 +1,6 @@
 package WWW::Google::Places::DetailResult;
 
-$WWW::Google::Places::DetailResult::VERSION = '0.10';
+$WWW::Google::Places::DetailResult::VERSION = '0.11';
 
 use 5.006;
 use Moo;
@@ -35,11 +35,15 @@ WWW::Google::Places::DetailResult - Placeholder for detail Search Result for WWW
 
 =head1 VERSION
 
-Version 0.10
+Version 0.11
 
 =head1 AUTHOR
 
 Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
+
+=head1 REPOSITORY
+
+L<https://github.com/Manwar/WWW-Google-Places>
 
 =head1 BUGS
 

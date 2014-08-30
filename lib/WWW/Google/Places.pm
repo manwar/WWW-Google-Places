@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION = '0.10';
+$WWW::Google::Places::VERSION = '0.11';
 
 use 5.006;
 use JSON;
@@ -28,7 +28,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.10
+Version 0.11
 
 =head1 DESCRIPTION
 
@@ -521,6 +521,10 @@ sub _handle_number {
 =head1 AUTHOR
 
 Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
+
+=head1 REPOSITORY
+
+L<https://github.com/Manwar/WWW-Google-Places>
 
 =head1 BUGS
 

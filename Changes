@@ -1,5 +1,9 @@
 Revision history for WWW-Google-Places
 
+0.11    Sat Aug 30 01:35:18 2014
+        - Added section "REPOSITORY" to the pod document.
+        - Added key "META_MERGE" to Makefile.PL file.
+
 0.10    Sun Aug 10 01:16:00 2014
         - Tidied up README file.
         - Updated Copyright year details.
@@ -14,8 +18,8 @@ Revision history for WWW-Google-Places
         - Updated Makefile.PL to make the pre-requisite WWW::Google::UserAgent v0.03
 
 0.06    Sun Jul 27 11:51:25 2014
-        - Made use of WWW::Google::UserAgent v0.02
-        - Deleted Build.PL
+        - Made use of WWW::Google::UserAgent v0.02.
+        - Deleted Build.PL file.
 
 0.05    Sun Jul 07 16:27:20 2014
         - Restructured to use the common library WWW::Google::UserAgent
