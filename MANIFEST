@@ -4,9 +4,9 @@ lib/WWW/Google/Places/Params.pm
 lib/WWW/Google/Places/SearchResult.pm
 lib/WWW/Google/Places/DetailResult.pm
 Makefile.PL
+LICENSE
 MANIFEST
 MANIFEST.SKIP
-SIGNATURE
 README
 t/00-load.t
 t/01-new.t
@@ -15,3 +15,5 @@ t/03-place_detail.t
 t/04-add_place.t
 t/manifest.t
 t/pod.t
+t/meta-json.t
+t/meta-yml.t

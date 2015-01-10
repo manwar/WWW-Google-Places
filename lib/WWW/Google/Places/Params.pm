@@ -1,6 +1,17 @@
 package WWW::Google::Places::Params;
 
-$WWW::Google::Places::Params::VERSION = '0.11';
+$WWW::Google::Places::Params::VERSION = '0.12';
+$WWW::Google::Places::Params::AUTHORITY = 'cpan:MANWAR';
+
+=head1 NAME
+
+WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
+
+=head1 VERSION
+
+Version 0.12
+
+=cut
 
 use 5.006;
 use strict; use warnings;
@@ -11,16 +22,6 @@ use vars qw(@ISA @EXPORT @EXPORT_OK);
 require Exporter;
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(validate $Language $FIELDS);
-
-=head1 NAME
-
-WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
-
-=head1 VERSION
-
-Version 0.11
-
-=cut
 
 my $LANGUAGES = {
     'ar' => 1, 'eu' => 1, 'bg'    => 1, 'bn'    => 1, 'ca'    => 1, 'cs'    => 1, 'da'    => 1, 'de' => 1,
@@ -208,7 +209,7 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (C) 2011 - 2014 Mohammad S Anwar.
+Copyright (C) 2011 - 2015 Mohammad S Anwar.
 
 This  program  is  free software; you can redistribute it and/or modify it under
 the  terms  of the the Artistic License (2.0). You may obtain a copy of the full

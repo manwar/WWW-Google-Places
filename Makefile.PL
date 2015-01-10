@@ -21,12 +21,18 @@ WriteMakefile(
         'JSON'                   => 0,
         'Moo'                    => 0,
         'namespace::clean'       => 0,
-        'WWW::Google::UserAgent' => '0.07',
+        'WWW::Google::UserAgent' => '0.12',
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'WWW-Google-Places-*' },
     (eval { ExtUtils::MakeMaker->VERSION(6.46) } ? (META_MERGE => {
         'meta-spec' => { version => 2 },
+        provides    => {
+            'WWW::Google::Places'               => { file => 'lib/WWW/Google/Places.pm',              version => '0.12' },
+            'WWW::Google::Places::Params'       => { file => 'lib/WWW/Google/Places/Params.pm',       version => '0.12' },
+            'WWW::Google::Places::SearchResult' => { file => 'lib/WWW/Google/Places/SearchResult.pm', version => '0.12' },
+            'WWW::Google::Places::DetailResult' => { file => 'lib/WWW/Google/Places/DetailResult.pm', version => '0.12' },
+        },
         resources => {
             repository => {
                 type => 'git',

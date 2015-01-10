@@ -1,6 +1,17 @@
 package WWW::Google::Places::DetailResult;
 
-$WWW::Google::Places::DetailResult::VERSION = '0.11';
+$WWW::Google::Places::DetailResult::VERSION   = '0.12';
+$WWW::Google::Places::DetailResult::AUTHORITY = 'cpan:MANWAR';
+
+=head1 NAME
+
+WWW::Google::Places::DetailResult - Placeholder for detail Search Result for WWW::Google::Places.
+
+=head1 VERSION
+
+Version 0.12
+
+=cut
 
 use 5.006;
 use Moo;
@@ -28,14 +39,49 @@ has 'opening_hours'          => (is => 'ro');
 has 'internation_number'     => (is => 'ro');
 has 'photos'                 => (is => 'ro');
 
+=head1 METHODS
 
-=head1 NAME
+=head2 name()
 
-WWW::Google::Places::DetailResult - Placeholder for detail Search Result for WWW::Google::Places.
+=head2 types()
 
-=head1 VERSION
+=head2 url()
 
-Version 0.11
+=head2 place_id()
+
+=head2 vicinity()
+
+=head2 website()
+
+=head2 formatted_phone_number()
+
+=head2 adr_address()
+
+=head2 reference()
+
+=head2 utf_offset()
+
+=head2 geometry()
+
+=head2 scope()
+
+=head2 icon()
+
+=head2 reviews()
+
+=head2 rating()
+
+=head2 user_ratings_total()
+
+=head2 formatted_address()
+
+=head2 address_components()
+
+=head2 opening_hours()
+
+=head2 internation_number()
+
+=head2 photos()
 
 =head1 AUTHOR
 
@@ -82,7 +128,7 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (C) 2011 - 2014 Mohammad S Anwar.
+Copyright (C) 2011 - 2015 Mohammad S Anwar.
 
 This  program  is  free software; you can redistribute it and/or modify it under
 the  terms  of the the Artistic License (2.0). You may obtain a copy of the full

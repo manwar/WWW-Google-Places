@@ -1,5 +1,14 @@
 Revision history for WWW-Google-Places
 
+0.12    Sat Jan 10 18:50:18 2015
+        - Upgraded to use WWW::Google::UserAgent v0.12.
+        - Updated Makefile.PL to generate the key 'provides' for META file correctly.
+        - Documented methods in the package WWW::Google::Places::SearchResult and WWW::Google::Places::DetailResult.
+        - Removed SIGNATURE file.
+        - Added unit test to test META files.
+        - Added LICENSE file.
+        - Updated Copyright year information.
+
 0.11    Sat Aug 30 01:35:18 2014
         - Added section "REPOSITORY" to the pod document.
         - Added key "META_MERGE" to Makefile.PL file.

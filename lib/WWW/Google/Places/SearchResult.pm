@@ -1,6 +1,17 @@
 package WWW::Google::Places::SearchResult;
 
-$WWW::Google::Places::SearchResult::VERSION = '0.11';
+$WWW::Google::Places::SearchResult::VERSION   = '0.12';
+$WWW::Google::Places::SearchResult::AUTHORITY = 'cpan:MANWAR';
+
+=head1 NAME
+
+WWW::Google::Places::SearchResult - Placeholder for Search Result for WWW::Google::Places.
+
+=head1 VERSION
+
+Version 0.12
+
+=cut
 
 use 5.006;
 use Moo;
@@ -14,13 +25,21 @@ has 'icon'     => (is => 'ro');
 has 'vicinity' => (is => 'ro');
 has 'scope'    => (is => 'ro');
 
-=head1 NAME
+=head1 METHODS
 
-WWW::Google::Places::SearchResult - Placeholder for Search Result for WWW::Google::Places.
+=head2 place_id()
 
-=head1 VERSION
+=head2 name()
 
-Version 0.11
+=head2 types()
+
+=head2 geometry()
+
+=head2 icon()
+
+=head2 vicinity()
+
+=head2 scope()
 
 =head1 AUTHOR
 
@@ -67,7 +86,7 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (C) 2011 - 2014 Mohammad S Anwar.
+Copyright (C) 2011 - 2015 Mohammad S Anwar.
 
 This  program  is  free software; you can redistribute it and/or modify it under
 the  terms  of the the Artistic License (2.0). You may obtain a copy of the full

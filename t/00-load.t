@@ -2,9 +2,7 @@
 use 5.006;
 use strict;
 use warnings FATAL => 'all';
-use Test::More;
-
-plan tests => 4;
+use Test::More tests => 4;
 
 BEGIN {
     use_ok( 'WWW::Google::Places'               ) || print "Bail out!\n";

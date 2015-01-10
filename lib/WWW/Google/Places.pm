@@ -1,6 +1,17 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION = '0.11';
+$WWW::Google::Places::VERSION   = '0.12';
+$WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
+
+=head1 NAME
+
+WWW::Google::Places - Interface to Google Places API.
+
+=head1 VERSION
+
+Version 0.12
+
+=cut
 
 use 5.006;
 use JSON;
@@ -21,14 +32,6 @@ our $BASE_URL = 'https://maps.googleapis.com/maps/api/place';
 has 'sensor'   => (is => 'ro', isa => $TrueOrFalse, default => sub { return 'false' });
 has 'output'   => (is => 'ro', isa => $XmlOrJson,   default => sub { return 'json'  });
 has 'language' => (is => 'ro', isa => $Language,    default => sub { return 'en'    });
-
-=head1 NAME
-
-WWW::Google::Places - Interface to Google Places API.
-
-=head1 VERSION
-
-Version 0.11
 
 =head1 DESCRIPTION
 
@@ -563,7 +566,7 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (C) 2011 - 2014 Mohammad S Anwar.
+Copyright (C) 2011 - 2015 Mohammad S Anwar.
 
 This  program  is  free software; you can redistribute it and/or modify it under
 the  terms  of the the Artistic License (2.0). You may obtain a copy of the full
