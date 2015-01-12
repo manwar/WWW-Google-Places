@@ -1,5 +1,14 @@
 Revision history for WWW-Google-Places
 
+0.13    Mon Jan 12 12:40:18 2015
+        - Added 'use 5.006;' line to the following test scripts:
+          - t/01-new.t
+          - t/02-search_place.t
+          - t/03-place_detail.t
+          - t/04-add_place.t
+          - t/meta-json.t
+          - t/meta-yml.t
+
 0.12    Sat Jan 10 18:50:18 2015
         - Upgraded to use WWW::Google::UserAgent v0.12.
         - Updated Makefile.PL to generate the key 'provides' for META file correctly.
