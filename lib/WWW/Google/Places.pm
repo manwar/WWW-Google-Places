@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.13';
+$WWW::Google::Places::VERSION   = '0.14';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.13
+Version 0.14
 
 =cut
 
@@ -265,10 +265,9 @@ can  get it for FREE from Google.
 
 =head1 METHODS
 
-=head2 search()
+=head2 search(\%params)
 
-Returns a list of objects of L<WWW::Google::Places::SearchResult>.
-
+Returns a list of objects of type L<WWW::Google::Places::SearchResult>.
 
     +----------+--------------------------------------------------------------------------------+
     | Key      | Description                                                                    |
@@ -290,7 +289,7 @@ Returns a list of objects of L<WWW::Google::Places::SearchResult>.
 
     my $api_key = 'Your_API_Key';
     my $place   = WWW::Google::Places->new(api_key => $api_key);
-    my $results = $place->search(location=>'-33.8670522,151.1957362', radius=>500);
+    my $results = $place->search({ location=>'-33.8670522,151.1957362', radius=>500 });
 
 =cut
 
@@ -306,16 +305,9 @@ sub search {
     return @results;
 }
 
-sub search_place {
-    my ($self, %values) = @_;
+=head2 details($place_id)
 
-    warn "DEPRECATED method, please use search()";
-    $self->search(\%values);
-}
-
-=head2 details()
-
-Returns an object of L<WWW::Google::Places::DetailResult>
+Returns an object of type L<WWW::Google::Places::DetailResult>.
 
     +-----------+-------------------------------------------------------------------------------------+
     | Key       | Description                                                                         |
@@ -344,23 +336,7 @@ sub details {
     return WWW::Google::Places::DetailResult->new($contents->{result});
 }
 
-sub place_detail {
-    my ($self, $reference) = @_;
-
-    warn "DEPRECATED method, please use details(). Also key 'reference' is deprecated, use placeid";
-    my $params   = { reference => 1 };
-    my $url      = $self->_url('details', $params, { reference => $reference });
-    my $response = $self->get($url);
-    my $contents = from_json($response->{content});
-
-    return WWW::Google::Places::DetailResult->new($contents->{result});
-}
-
-sub place_checkins {
-    warn "Google API no longer supports the feature."
-}
-
-=head2 add()
+=head2 add(\%params)
 
 Add a place to be available for any future search place request. Returnss place id.
 
@@ -381,7 +357,7 @@ Add a place to be available for any future search place request. Returnss place 
 
     my $api_key = 'Your_API_Key';
     my $place   = WWW::Google::Places->new(api_key => $api_key);
-    my $status  = $place->add('location'=>'-33.8669710,151.1958750', accuracy=>40, name=>'Google Shoes!');
+    my $status  = $place->add({ 'location'=>'-33.8669710,151.1958750', accuracy=>40, name=>'Google Shoes!' });
 
 =cut
 
@@ -399,14 +375,7 @@ sub add {
     return $contents->{place_id};
 }
 
-sub add_place {
-    my ($self, %values) = @_;
-
-    warn "DEPRECATED method, please use add()";
-    $self->add(\%values);
-}
-
-=head2 delete()
+=head2 delete($place_id)
 
 Delete a place as given reference. Place can  be  deleted by the same application
 that has added it in the first place.Once moderated and added into the full Place
@@ -443,6 +412,62 @@ sub delete {
     return from_json($response->{content});
 }
 
+=head2 search_place(%params) *** DEPRECATED ***
+
+Instead call method search().
+
+Returns a list of objects of type L<WWW::Google::Places::SearchResult>.
+
+=cut
+
+sub search_place {
+    my ($self, %values) = @_;
+
+    warn "DEPRECATED method, please use search()";
+    $self->search(\%values);
+}
+
+=head2 place_detail($reference) *** DEPRECATED ***
+
+Instead call method details().
+
+Returns an object of type L<WWW::Google::Places::DetailResult>.
+
+=cut
+
+sub place_detail {
+    my ($self, $reference) = @_;
+
+    warn "DEPRECATED method, please use details(). Also key 'reference' is deprecated, use placeid";
+    my $params   = { reference => 1 };
+    my $url      = $self->_url('details', $params, { reference => $reference });
+    my $response = $self->get($url);
+    my $contents = from_json($response->{content});
+
+    return WWW::Google::Places::DetailResult->new($contents->{result});
+}
+
+=head2 add_place(%params) *** DEPRECATED ***
+
+Instead call method add().
+
+Returns an object of type L<WWW::Google::Places::DetailResult>.
+
+=cut
+
+sub add_place {
+    my ($self, %values) = @_;
+
+    warn "DEPRECATED method, please use add()";
+    $self->add(\%values);
+}
+
+=head2 delete_place($reference) *** DEPRECATED ***
+
+Instead call method delete().
+
+=cut
+
 sub delete_place {
     my ($self, $reference) = @_;
 
@@ -454,6 +479,14 @@ sub delete_place {
     my $response = $self->post($url, $headers, $content);
 
     return from_json($response->{content});
+}
+
+=head2 place_checkins() *** UNSUPPORTED ***
+
+=cut
+
+sub place_checkins {
+    warn "Google API no longer supports the feature."
 }
 
 #

@@ -1,5 +1,19 @@
 Revision history for WWW-Google-Places
 
+0.14   Mon Jan 12 15:05:18 2015
+       - Upgraded to use WWW::Google::UserAgent v0.13.
+       - Updated the description of the following methods in the pod document:
+         - search()
+         - details()
+         - add()
+         - delete()
+       - Marked the following methods as DEPRECATED/UNSUPPORTED in the pod document:
+         - search_place()
+         - place_detail()
+         - add_place()
+         - delete_place()
+         - place_checkins()
+
 0.13    Mon Jan 12 12:40:18 2015
         - Added 'use 5.006;' line to the following test scripts:
           - t/01-new.t
