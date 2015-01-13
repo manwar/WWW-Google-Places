@@ -1,5 +1,8 @@
 Revision history for WWW-Google-Places
 
+0.15   Tue Jan 13 20:00:10 2015
+       - Updated description of methods in the pod document of the package WWW::Google::Places.
+
 0.14   Mon Jan 12 15:05:18 2015
        - Upgraded to use WWW::Google::UserAgent v0.13.
        - Updated the description of the following methods in the pod document:

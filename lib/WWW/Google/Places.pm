@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.14';
+$WWW::Google::Places::VERSION   = '0.15';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.14
+Version 0.15
 
 =cut
 
@@ -242,8 +242,8 @@ Additional types listed below can be used in Place Searches, but not when adding
 
 =head1 CONSTRUCTOR
 
-The constructor expects your application API Key and sensor at the least that you
-can  get it for FREE from Google.
+The constructor expects the following keys. Only the  'api_key'  is mandatory and
+others are optionals.
 
     +-----------+--------------------------------------------------------------------------------------+
     | Parameter | Meaning                                                                              |
@@ -267,7 +267,8 @@ can  get it for FREE from Google.
 
 =head2 search(\%params)
 
-Returns a list of objects of type L<WWW::Google::Places::SearchResult>.
+Expects a ref to hash as the only parameter containing the following keys.It then
+returns a list of objects of type L<WWW::Google::Places::SearchResult>.
 
     +----------+--------------------------------------------------------------------------------+
     | Key      | Description                                                                    |
@@ -307,13 +308,8 @@ sub search {
 
 =head2 details($place_id)
 
-Returns an object of type L<WWW::Google::Places::DetailResult>.
-
-    +-----------+-------------------------------------------------------------------------------------+
-    | Key       | Description                                                                         |
-    +-----------+-------------------------------------------------------------------------------------+
-    | placeid   | A textual identifier that uniquely identifies a place, returned from a Place Search |
-    +-----------+-------------------------------------------------------------------------------------+
+Expects place id, a textual identifier that uniquely identifies a place, returned
+from a Place Search. It then returns an object of type L<WWW::Google::Places::DetailResult>.
 
     use strict; use warnings;
     use WWW::Google::Places;
@@ -338,7 +334,8 @@ sub details {
 
 =head2 add(\%params)
 
-Add a place to be available for any future search place request. Returnss place id.
+Expects a ref to hash as the only parameter containing the following keys.It then
+returns place id.
 
     +----------+--------------------------------------------------------------------------------+
     | Key      | Description                                                                    |
@@ -377,18 +374,14 @@ sub add {
 
 =head2 delete($place_id)
 
+Expects place id, a textual identifier that uniquely identifies a place, returned
+from a Place Search.
+
 Delete a place as given reference. Place can  be  deleted by the same application
 that has added it in the first place.Once moderated and added into the full Place
 Search results, a Place  can  no longer  be deleted. Places that are not accepted
 by  the  moderation  process  will continue to be visible to the application that
 submitted them.
-
-
-    +-----------+-------------------------------------------------------------------------------------+
-    | Key       | Description                                                                         |
-    +-----------+-------------------------------------------------------------------------------------+
-    | place_id  | A textual identifier that uniquely identifies a place, returned from a Place Search |
-    +-----------+-------------------------------------------------------------------------------------+
 
     use strict; use warnings;
     use WWW::Google::Places;

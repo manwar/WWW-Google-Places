@@ -28,10 +28,10 @@ WriteMakefile(
     (eval { ExtUtils::MakeMaker->VERSION(6.46) } ? (META_MERGE => {
         'meta-spec' => { version => 2 },
         provides    => {
-            'WWW::Google::Places'               => { file => 'lib/WWW/Google/Places.pm',              version => '0.14' },
-            'WWW::Google::Places::Params'       => { file => 'lib/WWW/Google/Places/Params.pm',       version => '0.14' },
-            'WWW::Google::Places::SearchResult' => { file => 'lib/WWW/Google/Places/SearchResult.pm', version => '0.14' },
-            'WWW::Google::Places::DetailResult' => { file => 'lib/WWW/Google/Places/DetailResult.pm', version => '0.14' },
+            'WWW::Google::Places'               => { file => 'lib/WWW/Google/Places.pm',              version => '0.15' },
+            'WWW::Google::Places::Params'       => { file => 'lib/WWW/Google/Places/Params.pm',       version => '0.15' },
+            'WWW::Google::Places::SearchResult' => { file => 'lib/WWW/Google/Places/SearchResult.pm', version => '0.15' },
+            'WWW::Google::Places::DetailResult' => { file => 'lib/WWW/Google/Places/DetailResult.pm', version => '0.15' },
         },
         resources => {
             repository => {
