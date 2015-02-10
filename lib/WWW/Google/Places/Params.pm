@@ -71,7 +71,8 @@ my $MORE_PLACE_TYPES = {
     'premise'                     => 1, 'room'                        => 1, 'route'                       => 1, 'street_address'      => 1,
     'street_number'               => 1, 'sublocality'                 => 1, 'sublocality_level_4'         => 1, 'sublocality_level_5' => 1,
     'sublocality_level_3'         => 1, 'sublocality_level_2'         => 1, 'sublocality_level_1'         => 1, 'subpremise'          => 1,
-    'transit_station'             => 1 };
+    'transit_station'             => 1 
+};
 
 our $STATUS = {
     'OK'               => 'No errors occurred; the place was successfully detected and at least one result was returned.',
@@ -144,6 +145,7 @@ our $FIELDS = {
     'language'     => { check => sub { check_language(@_) }, type => 's' },
     'address'      => { check => sub { check_str(@_)      }, type => 's' },
     'reference'    => { check => sub { check_str(@_)      }, type => 's' },
+    'pagetoken'    => { check => sub { check_str(@_)      }, type => 's' },
 };
 
 sub validate {
@@ -163,7 +165,7 @@ sub validate {
         die "ERROR: Received undefined mandatory param: $field"
             if ($fields->{$field} && !defined $values->{$field});
 
-	$FIELDS->{$field}->{check}->($values->{$field})
+        $FIELDS->{$field}->{check}->($values->{$field})
             if defined $values->{$field};
     }
 }
