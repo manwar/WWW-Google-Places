@@ -294,16 +294,51 @@ returns a list of objects of type L<WWW::Google::Places::SearchResult>.
 
 =cut
 
+
 sub search {
     my ($self, $values) = @_;
-
+   
     my $params   = { location => 1, radius => 1, types => 0, name => 0 };
     my $url      = $self->_url('search', $params, $values);
     my $response = $self->get($url);
     my $contents = from_json($response->{content});
-
+   
     my @results  = map { WWW::Google::Places::SearchResult->new($_) } @{$contents->{results}};
     return @results;
+}
+
+=head2 paged_search(\%params)
+
+Accepts the same values as C<search(\%params)> but handles queries that 
+have multiple pages worth of data. Using paged_search the max number of results is 60
+(or 3 pages worth) 
+L<https://developers.google.com/places/documentation/search#PlaceSearchRequests>
+
+Note: due to the way that Google handles the paging of results there is a 
+required sleep of 2 seconds between each requests so that the Google pageTokens
+can become active.
+
+=cut
+
+sub paged_search {
+    my ($self, $values) = @_;
+
+    my $params = { location => 1, radius => 1, types => 0, name => 0, pagetoken => 0 };
+    my ($pagetoken, $contents, @search_results);
+    do {
+       if ( defined $pagetoken) {
+          $values->{pagetoken} = $pagetoken;
+          sleep(2); # pagetokens take a few seconds to become active
+       }
+       my $url      = $self->_url('search', $params, $values);
+       my $response = $self->get($url);
+       $contents    = from_json( $response->{content} );
+
+       push @search_results,
+          map { WWW::Google::Places::SearchResult->new($_) } @{$contents->{results}};
+    } while $pagetoken = $contents->{next_page_token};
+    
+    return @search_results;
 }
 
 =head2 details($place_id)
@@ -488,7 +523,6 @@ sub place_checkins {
 
 sub _url {
     my ($self, $type, $params, $values) = @_;
-
     my $url = sprintf("%s/%s/%s?key=%s&sensor=%s&language=%s",
                       $BASE_URL, $type, $self->output, $self->api_key,
                       $self->sensor, $self->language);
