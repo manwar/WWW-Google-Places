@@ -326,11 +326,10 @@ sub paged_search {
     my $params = { location => 1, radius => 1, types => 0, name => 0, pagetoken => 0 };
     my ($pagetoken, $contents, @search_results);
     do {
-       $values->{pagetoken} = $pagetoken
-          if defined $pagetoken;
-       
-       sleep(2); # pagetokens take a few seconds to become active
-
+       if ( defined $pagetoken) {
+          $values->{pagetoken} = $pagetoken;
+          sleep(2); # pagetokens take a few seconds to become active
+       }
        my $url      = $self->_url('search', $params, $values);
        my $response = $self->get($url);
        $contents    = from_json( $response->{content} );
