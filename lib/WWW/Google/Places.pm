@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.15';
+$WWW::Google::Places::VERSION   = '0.16';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.15
+Version 0.16
 
 =cut
 
@@ -306,6 +306,51 @@ sub search {
     return @results;
 }
 
+=head2 paged_search(\%params)
+
+Accepts the  same  values  as C<search(\%params)> but  handles  queries that have
+multiple  pages worth of data. Using paged_search the max number of results is 60
+(or 3 pages worth) L<https://developers.google.com/places/documentation/search#PlaceSearchRequests>
+
+NOTE:Due to the way that Google handles the paging of results there is a required
+sleep of 2 seconds between each requests so that the Google pageTokens can become
+active.
+
+    use strict; use warnings;
+    use WWW::Google::Places;
+
+    my $api_key = 'Your_API_Key';
+    my $place   = WWW::Google::Places->new(api_key => $api_key);
+    my $results = $place->paged_search(
+                  { location => '34.0522222,-118.2427778',
+                    radius   => 500,
+                    types    => 'bar|restaurant',
+                  });
+
+=cut
+
+sub paged_search {
+    my ($self, $values) = @_;
+
+    my $params = { location => 1, radius => 1, types => 0, name => 0, pagetoken => 0 };
+    my ($pagetoken, $contents, $search_results);
+    do {
+       if (defined $pagetoken) {
+          $values->{pagetoken} = $pagetoken;
+          # pagetokens take a few seconds to become active
+          sleep(2);
+       }
+       my $url      = $self->_url('search', $params, $values);
+       my $response = $self->get($url);
+       $contents    = from_json( $response->{content} );
+
+       push @$search_results,
+          map { WWW::Google::Places::SearchResult->new($_) } @{$contents->{results}};
+    } while $pagetoken = $contents->{next_page_token};
+
+    return $search_results;
+}
+
 =head2 details($place_id)
 
 Expects place id, a textual identifier that uniquely identifies a place, returned
@@ -483,8 +528,8 @@ sub place_checkins {
 }
 
 #
-# PRIVATE METHODS
 #
+# PRIVATE METHODS
 
 sub _url {
     my ($self, $type, $params, $values) = @_;
@@ -554,6 +599,14 @@ Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
 =head1 REPOSITORY
 
 L<https://github.com/Manwar/WWW-Google-Places>
+
+=head1 CONTRIBUTORS
+
+=over 4
+
+=item * Hunter McMillen (mcmillhj)
+
+=back
 
 =head1 BUGS
 

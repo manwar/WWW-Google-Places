@@ -1,3 +1,5 @@
+#!/usr/bin/perl
+
 use 5.006;
 use strict;
 use warnings FATAL => 'all';
@@ -16,22 +18,23 @@ WriteMakefile(
     },
     BUILD_REQUIRES => {
         'Test::More' => 0,
+        'Net::DNS'   => 0,
     },
     PREREQ_PM => {
         'JSON'                   => 0,
         'Moo'                    => 0,
         'namespace::clean'       => 0,
-        'WWW::Google::UserAgent' => '0.13',
+        'WWW::Google::UserAgent' => '0.14',
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'WWW-Google-Places-*' },
     (eval { ExtUtils::MakeMaker->VERSION(6.46) } ? (META_MERGE => {
         'meta-spec' => { version => 2 },
         provides    => {
-            'WWW::Google::Places'               => { file => 'lib/WWW/Google/Places.pm',              version => '0.15' },
-            'WWW::Google::Places::Params'       => { file => 'lib/WWW/Google/Places/Params.pm',       version => '0.15' },
-            'WWW::Google::Places::SearchResult' => { file => 'lib/WWW/Google/Places/SearchResult.pm', version => '0.15' },
-            'WWW::Google::Places::DetailResult' => { file => 'lib/WWW/Google/Places/DetailResult.pm', version => '0.15' },
+            'WWW::Google::Places'               => { file => 'lib/WWW/Google/Places.pm',              version => '0.16' },
+            'WWW::Google::Places::Params'       => { file => 'lib/WWW/Google/Places/Params.pm',       version => '0.16' },
+            'WWW::Google::Places::SearchResult' => { file => 'lib/WWW/Google/Places/SearchResult.pm', version => '0.16' },
+            'WWW::Google::Places::DetailResult' => { file => 'lib/WWW/Google/Places/DetailResult.pm', version => '0.16' },
         },
         resources => {
             repository => {

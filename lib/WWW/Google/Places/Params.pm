@@ -1,6 +1,6 @@
 package WWW::Google::Places::Params;
 
-$WWW::Google::Places::Params::VERSION = '0.15';
+$WWW::Google::Places::Params::VERSION   = '0.16';
 $WWW::Google::Places::Params::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
 
 =head1 VERSION
 
-Version 0.15
+Version 0.16
 
 =head1 DESCRIPTION
 
@@ -71,7 +71,8 @@ my $MORE_PLACE_TYPES = {
     'premise'                     => 1, 'room'                        => 1, 'route'                       => 1, 'street_address'      => 1,
     'street_number'               => 1, 'sublocality'                 => 1, 'sublocality_level_4'         => 1, 'sublocality_level_5' => 1,
     'sublocality_level_3'         => 1, 'sublocality_level_2'         => 1, 'sublocality_level_1'         => 1, 'subpremise'          => 1,
-    'transit_station'             => 1 };
+    'transit_station'             => 1
+};
 
 our $STATUS = {
     'OK'               => 'No errors occurred; the place was successfully detected and at least one result was returned.',
