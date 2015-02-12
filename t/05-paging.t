@@ -1,12 +1,12 @@
 #!/usr/bin/env perl
 
 use 5.006;
-use strict;
-use warnings;
-
+use strict; use warnings;
 use Test::More;
+use Test::Internet qw(connect_ok);
+
 plan skip_all => "Environment var GOOGLE_API_KEY missing." unless defined $ENV{GOOGLE_API_KEY};
-plan skip_all => "No internet connection."                 unless _is_connected();
+plan skip_all => "No internet connection."                 unless connect_ok();
 
 use WWW::Google::Places;
 my $places_service =  WWW::Google::Places->new(api_key => $ENV{GOOGLE_API_KEY});
@@ -43,11 +43,3 @@ my $los_angeles    = '34.0522222,-118.2427778';
 }
 
 done_testing();
-
-sub _is_connected {
-    use Net::DNS;
-    my $res = Net::DNS::Resolver->new;
-    $res->tcp_timeout(5);
-    $res->udp_timeout(5);
-    return defined $res->query("root-servers.net", "NS");
-}

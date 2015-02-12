@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.16';
+$WWW::Google::Places::VERSION   = '0.17';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.16
+Version 0.17
 
 =cut
 
@@ -45,139 +45,139 @@ Currently it supports version v3.
 
 Supported types for Place adds/searches.
 
-    +-------------------------+
-    | accounting              |
-    | airport                 |
-    | amusement_park          |
-    | aquarium                |
-    | art_gallery             |
-    | atm                     |
-    | bakery                  |
-    | bank                    |
-    | bar                     |
-    | beauty_salon            |
-    | bicycle_store           |
-    | book_store              |
-    | bowling_alley           |
-    | bus_station             |
-    | cafe                    |
-    | campground              |
-    | car_dealer              |
-    | car_rental              |
-    | car_repair              |
-    | car_wash                |
-    | casino                  |
-    | cemetery                |
-    | church                  |
-    | city_hall               |
-    | clothing_store          |
-    | convenience_store       |
-    | courthouse              |
-    | dentist                 |
-    | department_store        |
-    | doctor                  |
-    | electrician             |
-    | electronics_store       |
-    | embassy                 |
-    | establishment           |
-    | finance                 |
-    | fire_station            |
-    | florist                 |
-    | food                    |
-    | funeral_home            |
-    | furniture_store         |
-    | gas_station             |
-    | general_contractor      |
-    | geocode                 |
-    | grocery_or_supermarket  |
-    | gym                     |
-    | hair_care               |
-    | hardware_store          |
-    | health                  |
-    | hindu_temple            |
-    | home_goods_store        |
-    | hospital                |
-    | insurance_agency        |
-    | jewelry_store           |
-    | laundry                 |
-    | lawyer                  |
-    | library                 |
-    | liquor_store            |
-    | local_government_office |
-    | locksmith               |
-    | lodging                 |
-    | meal_delivery           |
-    | meal_takeaway           |
-    | mosque                  |
-    | movie_rental            |
-    | movie_theater           |
-    | moving_company          |
-    | museum                  |
-    | night_club              |
-    | painter                 |
-    | park                    |
-    | parking                 |
-    | pet_store               |
-    | pharmacy                |
-    | physiotherapist         |
-    | place_of_worship        |
-    | plumber                 |
-    | police                  |
-    | post_office             |
-    | real_estate_agency      |
-    | restaurant              |
-    | roofing_contractor      |
-    | rv_park                 |
-    | school                  |
-    | shoe_store              |
-    | shopping_mall           |
-    | spa                     |
-    | stadium                 |
-    | storage                 |
-    | store                   |
-    | subway_station          |
-    | synagogue               |
-    | taxi_stand              |
-    | train_station           |
-    | travel_agency           |
-    | university              |
-    | veterinary_care         |
-    | zoo                     |
-    +-------------------------+
+    +---------------------------------+
+    | accounting                      |
+    | airport                         |
+    | amusement_park                  |
+    | aquarium                        |
+    | art_gallery                     |
+    | atm                             |
+    | bakery                          |
+    | bank                            |
+    | bar                             |
+    | beauty_salon                    |
+    | bicycle_store                   |
+    | book_store                      |
+    | bowling_alley                   |
+    | bus_station                     |
+    | cafe                            |
+    | campground                      |
+    | car_dealer                      |
+    | car_rental                      |
+    | car_repair                      |
+    | car_wash                        |
+    | casino                          |
+    | cemetery                        |
+    | church                          |
+    | city_hall                       |
+    | clothing_store                  |
+    | convenience_store               |
+    | courthouse                      |
+    | dentist                         |
+    | department_store                |
+    | doctor                          |
+    | electrician                     |
+    | electronics_store               |
+    | embassy                         |
+    | establishment                   |
+    | finance                         |
+    | fire_station                    |
+    | florist                         |
+    | food                            |
+    | funeral_home                    |
+    | furniture_store                 |
+    | gas_station                     |
+    | general_contractor              |
+    | geocode                         |
+    | grocery_or_supermarket          |
+    | gym                             |
+    | hair_care                       |
+    | hardware_store                  |
+    | health                          |
+    | hindu_temple                    |
+    | home_goods_store                |
+    | hospital                        |
+    | insurance_agency                |
+    | jewelry_store                   |
+    | laundry                         |
+    | lawyer                          |
+    | library                         |
+    | liquor_store                    |
+    | local_government_office         |
+    | locksmith                       |
+    | lodging                         |
+    | meal_delivery                   |
+    | meal_takeaway                   |
+    | mosque                          |
+    | movie_rental                    |
+    | movie_theater                   |
+    | moving_company                  |
+    | museum                          |
+    | night_club                      |
+    | painter                         |
+    | park                            |
+    | parking                         |
+    | pet_store                       |
+    | pharmacy                        |
+    | physiotherapist                 |
+    | place_of_worship                |
+    | plumber                         |
+    | police                          |
+    | post_office                     |
+    | real_estate_agency              |
+    | restaurant                      |
+    | roofing_contractor              |
+    | rv_park                         |
+    | school                          |
+    | shoe_store                      |
+    | shopping_mall                   |
+    | spa                             |
+    | stadium                         |
+    | storage                         |
+    | store                           |
+    | subway_station                  |
+    | synagogue                       |
+    | taxi_stand                      |
+    | train_station                   |
+    | travel_agency                   |
+    | university                      |
+    | veterinary_care                 |
+    | zoo                             |
+    +---------------------------------+
 
 Additional types listed below can be used in Place Searches, but not when adding a Place.
 
-    +-----------------------------+
-    | administrative_area_level_1 |
-    | administrative_area_level_2 |
-    | administrative_area_level_3 |
-    | colloquial_area             |
-    | country                     |
-    | floor                       |
-    | intersection                |
-    | locality                    |
-    | natural_feature             |
-    | neighborhood                |
-    | political                   |
-    | point_of_interest           |
-    | post_box                    |
-    | postal_code                 |
-    | postal_code_prefix          |
-    | postal_town                 |
-    | premise                     |
-    | room                        |
-    | route                       |
-    | street_address              |
-    | street_number               |
-    | sublocality                 |
-    | sublocality_level_4         |
-    | sublocality_level_5         |
-    | sublocality_level_3         |
-    | sublocality_level_2         |
-    | sublocality_level_1         |
-    | subpremise                  |
-    | transit_station             |
-    +-----------------------------+
+    +---------------------------------+
+    | administrative_area_level_1     |
+    | administrative_area_level_2     |
+    | administrative_area_level_3     |
+    | colloquial_area                 |
+    | country                         |
+    | floor                           |
+    | intersection                    |
+    | locality                        |
+    | natural_feature                 |
+    | neighborhood                    |
+    | political                       |
+    | point_of_interest               |
+    | post_box                        |
+    | postal_code                     |
+    | postal_code_prefix              |
+    | postal_town                     |
+    | premise                         |
+    | room                            |
+    | route                           |
+    | street_address                  |
+    | street_number                   |
+    | sublocality                     |
+    | sublocality_level_4             |
+    | sublocality_level_5             |
+    | sublocality_level_3             |
+    | sublocality_level_2             |
+    | sublocality_level_1             |
+    | subpremise                      |
+    | transit_station                 |
+    +---------------------------------+
 
 =head1 LANGUAGES
 
@@ -245,17 +245,19 @@ Additional types listed below can be used in Place Searches, but not when adding
 The constructor expects the following keys. Only the  'api_key'  is mandatory and
 others are optionals.
 
-    +-----------+--------------------------------------------------------------------------------------+
-    | Parameter | Meaning                                                                              |
-    +-----------+--------------------------------------------------------------------------------------+
-    | api_key   | Your application API key. You should supply a valid API key with all requests. Get a |
-    |           | key from the Google APIs console. This must be provided.                             |
-    | sensor    | Indicates whether or not the Place request came from a device using a location sensor|
-    |           | (e.g. a GPS) to determine the location sent in this request. This value must be      |
-    |           | either true or false. Default is false.                                              |
-    | language  | The language code, indicating in which language the results should be returned. The  |
-    |           | default is en.                                                                       |
-    +-----------+--------------------------------------------------------------------------------------+
+    +-----------+---------------------------------------------------------------+
+    | Parameter | Description                                                   |
+    +-----------+---------------------------------------------------------------+
+    | api_key   | Your application API key. You should supply a valid API key   |
+    |           | with all requests. Get a key from the Google APIs console.    |
+    |           | This must be provided.                                        |
+    | sensor    | Indicates whether or not the Place request came from a device |
+    |           | using a location sensor (e.g. a GPS) to determine the location|
+    |           | sent in this request. This value must be either true or false.|
+    |           | Default is false.                                             |
+    | language  | The language code, indicating in which language the results   |
+    |           | should be returned. The default is en.                        |
+    +-----------+---------------------------------------------------------------+
 
     use strict; use warnings;
     use WWW::Google::Places;
@@ -270,20 +272,22 @@ others are optionals.
 Expects a ref to hash as the only parameter containing the following keys.It then
 returns a list of objects of type L<WWW::Google::Places::SearchResult>.
 
-    +----------+--------------------------------------------------------------------------------+
-    | Key      | Description                                                                    |
-    +----------+--------------------------------------------------------------------------------+
-    | location | The latitude/longitude around which to retrieve Place information. This must be|
-    |          | provided as a google.maps.LatLng object. This must be provided.                |
-    | radius   | The distance (in meters) within which to return Place results. The recommended |
-    |          | best practice is to set radius based on the accuracy of the location signal as |
-    |          | given by the location sensor. Note that setting a radius biases results to the |
-    |          | indicated area, but may not fully restrict results to the specified area. This |
-    |          | must be provided.                                                              |
-    | types    | Restricts the results to Places matching at least one of the specified types.  |
-    |          | Types should be separated with a pipe symbol.                                  |
-    | name     | A term to be matched against the names of Places.                              |
-    +----------+--------------------------------------------------------------------------------+
+    +----------+----------------------------------------------------------------+
+    | Key      | Description                                                    |
+    +----------+----------------------------------------------------------------+
+    | location | The latitude/longitude around which to retrieve Place          |
+    |          | information. This must be provided as a google.maps.LatLng     |
+    |          | object. This must be provided.                                 |
+    | radius   | The distance (in meters) within which to return Place results. |
+    |          | The recommended best practice is to set radius based on the    |
+    |          | accuracy of the location signal as given by the location       |
+    |          | sensor. Note that setting a radius biases result to the        |
+    |          | indicated area, but may not fully restrict results to the      |
+    |          | specified area. This must be provided.                         |
+    | types    | Restricts the results to Places matching at least one of the   |
+    |          | specified types. Types should be separated with a pipe symbol. |
+    | name     | A term to be matched against the names of Places.              |
+    +----------+----------------------------------------------------------------+
 
     use strict; use warnings;
     use WWW::Google::Places;
@@ -382,17 +386,18 @@ sub details {
 Expects a ref to hash as the only parameter containing the following keys.It then
 returns place id.
 
-    +----------+--------------------------------------------------------------------------------+
-    | Key      | Description                                                                    |
-    +----------+--------------------------------------------------------------------------------+
-    | location | The latitude/longitude around which to retrieve Place information. This must   |
-    |          | be provided as a google.maps.LatLng object.                                    |
-    | accuracy | The accuracy of the location signal on which this request is based, expressed  |
-    |          | in meters. This must be provided.                                              |
-    | name     | The full text name of the Place.                                               |
-    | types    | Restricts the results to Places matching at least one of the specified types.  |
-    |          | Types should be separated with a pipe symbol.                                  |
-    +----------+--------------------------------------------------------------------------------+
+    +----------+----------------------------------------------------------------+
+    | Key      | Description                                                    |
+    +----------+----------------------------------------------------------------+
+    | location | The latitude/longitude around which to retrieve Place          |
+    |          | information. This must be provided as a google.maps.LatLng     |
+    |          | object.                                                        |
+    | accuracy | The accuracy of the location signal on which this request is   |
+    |          | based, expressed in meters. This must be provided.             |
+    | name     | The full text name of the Place.                               |
+    | types    | Restricts the results to Places matching at least one of the   |
+    |          | specified types. Types should be separated with a pipe symbol. |
+    +----------+----------------------------------------------------------------+
 
     use strict; use warnings;
     use WWW::Google::Places;
