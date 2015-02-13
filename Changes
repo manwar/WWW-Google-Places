@@ -1,5 +1,9 @@
 Revision history for WWW-Google-Places
 
+0.18   Fri Feb 13 17:20:10 2015
+       - Upgraded to use Test::Internet v0.04.
+       - Updated test script 05-paging.t
+
 0.17   Thu Feb 12 23:00:10 2015
        - Used Test::Internet in the test script 05-paging.t
        - Tidied up pod document in general.

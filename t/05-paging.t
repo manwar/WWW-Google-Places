@@ -3,7 +3,7 @@
 use 5.006;
 use strict; use warnings;
 use Test::More;
-use Test::Internet qw(connect_ok);
+use Test::Internet;
 
 plan skip_all => "Environment var GOOGLE_API_KEY missing." unless defined $ENV{GOOGLE_API_KEY};
 plan skip_all => "No internet connection."                 unless connect_ok();

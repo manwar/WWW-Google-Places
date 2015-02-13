@@ -18,7 +18,7 @@ WriteMakefile(
     },
     BUILD_REQUIRES => {
         'Test::More'     => 0,
-        'Test::Internet' => '0.03',
+        'Test::Internet' => '0.04',
     },
     PREREQ_PM => {
         'JSON'                   => 0,
@@ -31,10 +31,10 @@ WriteMakefile(
     (eval { ExtUtils::MakeMaker->VERSION(6.46) } ? (META_MERGE => {
         'meta-spec' => { version => 2 },
         provides    => {
-            'WWW::Google::Places'               => { file => 'lib/WWW/Google/Places.pm',              version => '0.17' },
-            'WWW::Google::Places::Params'       => { file => 'lib/WWW/Google/Places/Params.pm',       version => '0.17' },
-            'WWW::Google::Places::SearchResult' => { file => 'lib/WWW/Google/Places/SearchResult.pm', version => '0.17' },
-            'WWW::Google::Places::DetailResult' => { file => 'lib/WWW/Google/Places/DetailResult.pm', version => '0.17' },
+            'WWW::Google::Places'               => { file => 'lib/WWW/Google/Places.pm',              version => '0.18' },
+            'WWW::Google::Places::Params'       => { file => 'lib/WWW/Google/Places/Params.pm',       version => '0.18' },
+            'WWW::Google::Places::SearchResult' => { file => 'lib/WWW/Google/Places/SearchResult.pm', version => '0.18' },
+            'WWW::Google::Places::DetailResult' => { file => 'lib/WWW/Google/Places/DetailResult.pm', version => '0.18' },
         },
         resources => {
             repository => {
