@@ -1,5 +1,15 @@
 Revision history for WWW-Google-Places
 
+0.19   Mon Apr 27 13:40:10 2015
+       - Added following packages
+         - WWW::Google::Places::Geometry
+         - WWW::Google::Places::Location
+         - WWW::Google::Places::Review
+         - WWW::Google::Places::Review::Aspect
+       - Updated package WWW::Google::Places::DetailResult to respect the above changes.
+       - Updated package WWW::Google::Places::SearchResult to respect the above changes.
+       - Added section "SYNOPSIS" to the pod document of WWW::Google::Places.
+
 0.18   Fri Feb 13 17:20:10 2015
        - Upgraded to use Test::Internet v0.04.
        - Updated test script 05-paging.t

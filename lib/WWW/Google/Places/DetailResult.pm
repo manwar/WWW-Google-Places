@@ -1,6 +1,6 @@
 package WWW::Google::Places::DetailResult;
 
-$WWW::Google::Places::DetailResult::VERSION   = '0.18';
+$WWW::Google::Places::DetailResult::VERSION   = '0.19';
 $WWW::Google::Places::DetailResult::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,77 +9,136 @@ WWW::Google::Places::DetailResult - Placeholder for detail Search Result for WWW
 
 =head1 VERSION
 
-Version 0.18
+Version 0.19
 
 =cut
 
 use 5.006;
+use Data::Dumper;
+use WWW::Google::Places::Review;
+use WWW::Google::Places::Geometry;
+
 use Moo;
 use namespace::clean;
 
-has 'types'                  => (is => 'ro');
-has 'website'                => (is => 'ro');
-has 'place_id'               => (is => 'ro');
-has 'formatted_phone_number' => (is => 'ro');
+has 'website'                => (is => 'ro', default   => 'N/A');
+has 'place_id'               => (is => 'ro', required  => 1    );
+has 'formatted_phone_number' => (is => 'ro', default   => 'N/A');
+has 'opening_hours'          => (is => 'ro', default   => 'N/A');
+has 'internation_number'     => (is => 'ro', default   => 'N/A');
+has 'photos'                 => (is => 'ro', default   => 'N/A');
+has 'utf_offset'             => (is => 'ro', default   => 'N/A');
+has 'rating'                 => (is => 'ro', default   => 'N/A');
+has 'user_ratings_total'     => (is => 'ro', default   => 'N/A');
+has 'reviews'                => (is => 'ro');
 has 'vicinity'               => (is => 'ro');
 has 'adr_address'            => (is => 'ro');
 has 'reference'              => (is => 'ro');
-has 'utf_offset'             => (is => 'ro');
 has 'geometry'               => (is => 'ro');
 has 'scope'                  => (is => 'ro');
 has 'icon'                   => (is => 'ro');
 has 'name'                   => (is => 'ro');
-has 'reviews'                => (is => 'ro');
-has 'rating'                 => (is => 'ro');
-has 'user_ratings_total'     => (is => 'ro');
+has 'types'                  => (is => 'ro');
 has 'formatted_address'      => (is => 'ro');
 has 'url'                    => (is => 'ro');
 has 'address_components'     => (is => 'ro');
-has 'opening_hours'          => (is => 'ro');
-has 'internation_number'     => (is => 'ro');
-has 'photos'                 => (is => 'ro');
+
+sub BUILDARGS {
+    my ($class, $args) = @_;
+
+    my $objects = [];
+    if (exists $args->{reviews}) {
+        my $reviews = $args->{reviews};
+        foreach (@$reviews) {
+            push @$objects, WWW::Google::Places::Review->new($_);
+        }
+    }
+    else {
+        push @$objects, WWW::Google::Places::Review->new;
+    }
+
+    $args->{reviews} = $objects;
+
+    if (exists $args->{geometry}) {
+        $args->{geometry} = WWW::Google::Places::Geometry->new($args->{geometry});
+    }
+
+    return $args;
+}
 
 =head1 METHODS
 
 =head2 name()
 
+Returns place name.
+
 =head2 types()
+
+Returns ref to a list of place types as defined in the pod document of L<WWW::Google::Places>.
 
 =head2 url()
 
+Returns place URL.
+
 =head2 place_id()
+
+Returns place id.
 
 =head2 vicinity()
 
 =head2 website()
 
+Returns place website.
+
 =head2 formatted_phone_number()
+
+Returns place formatted phone number.
 
 =head2 adr_address()
 
 =head2 reference()
 
+Returns place reference.
+
 =head2 utf_offset()
 
 =head2 geometry()
 
+Returns an object of type L<WWW::Google::Places::Geometry>.
+
 =head2 scope()
+
+Returns place search scope.
 
 =head2 icon()
 
+Returns link to the place icon.
+
 =head2 reviews()
+
+Returns ref to a list of objects of type L<WWW::Google::Places::Review>.
 
 =head2 rating()
 
+Returns place rating.
+
 =head2 user_ratings_total()
 
+Retuns place total user ratings.
+
 =head2 formatted_address()
+
+Returns place address.
 
 =head2 address_components()
 
 =head2 opening_hours()
 
+Returns place opening hours.
+
 =head2 internation_number()
+
+Returns place internation number.
 
 =head2 photos()
 

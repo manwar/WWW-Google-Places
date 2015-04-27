@@ -1,11 +1,11 @@
-package WWW::Google::Places::SearchResult;
+package WWW::Google::Places::Review;
 
-$WWW::Google::Places::SearchResult::VERSION   = '0.19';
-$WWW::Google::Places::SearchResult::AUTHORITY = 'cpan:MANWAR';
+$WWW::Google::Places::Review::VERSION   = '0.19';
+$WWW::Google::Places::Review::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
 
-WWW::Google::Places::SearchResult - Placeholder for Search Result for WWW::Google::Places.
+WWW::Google::Places::Review - Represent 'review' of place.
 
 =head1 VERSION
 
@@ -13,61 +13,72 @@ Version 0.19
 
 =cut
 
-use 5.006;
-use Data::Dumper;
-use WWW::Google::Places::Geometry;
+use WWW::Google::Places::Review::Aspect;
 
+use 5.006;
 use Moo;
 use namespace::clean;
 
-has 'place_id' => (is => 'ro');
-has 'name'     => (is => 'ro');
-has 'types'    => (is => 'ro');
-has 'geometry' => (is => 'ro');
-has 'icon'     => (is => 'ro', default => 'N/A');
-has 'vicinity' => (is => 'ro', default => 'N/A');
-has 'scope'    => (is => 'ro', default => 'GOOGLE');
+use overload q{""} => 'as_string', fallback => 1;
 
-sub BUILDARGS {
-    my ($class, $args) = @_;
+has 'author_name' => (is => 'ro', default => 'N/A');
+has 'author_url'  => (is => 'ro', default => 'N/A');
+has 'language'    => (is => 'ro', default => 'N/A');
+has 'rating'      => (is => 'ro', default => 'N/A');
+has 'text'        => (is => 'ro', default => 'N/A');
+has 'time'        => (is => 'ro', default => 'N/A');
+has 'aspects'     => (is => 'rw', predicate => 1);
 
-    if (exists $args->{geometry}) {
-        $args->{geometry} = WWW::Google::Places::Geometry->new($args->{geometry});
+sub BUILD {
+    my ($self) = @_;
+
+    if ($self->has_aspects) {
+        my $aspects = $self->aspects;
+        my $objects = [];
+        foreach (@$aspects) {
+            push @$objects, WWW::Google::Places::Review::Aspect->new($_);
+        }
+        $self->aspects($objects);
     }
-
-    return $args;
 }
 
 =head1 METHODS
 
-=head2 place_id()
+=head2 author_name()
 
-Returns the place id.
+Returns author name.
 
-=head2 name()
+=head2 author_url()
 
-Returns place name.
+Returns author URL.
 
-=head2 types()
+=head2 language()
 
-Returns ref to a list of place types.
+Returns review language.
 
-=head2 geometry()
+=head2 rating()
 
-Returns an object of type L<WWW::Google::Places::Geometry>.
+Returns reviews rating.
 
-=head2 icon()
+=head2 text()
 
-Returns URL of the link to the place icon.
+Returns reviews text.
 
-=head2 vicinity()
+=head2 time()
 
-Returns the vicinity of place.
+Returns reviews time.
 
-=head2 scope()
+=head2 aspects()
 
-Returns the place search scope.
+Returns reviews aspects.
 
+=cut
+
+sub as_string {
+    my ($self) = @_;
+
+    return $self->text;
+}
 =head1 AUTHOR
 
 Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
@@ -87,7 +98,7 @@ bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc WWW::Google::Places::SearchResult
+    perldoc WWW::Google::Places::Review
 
 You can also look for information at:
 
@@ -115,8 +126,8 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 Copyright (C) 2011 - 2015 Mohammad S Anwar.
 
-This  program  is  free software; you can redistribute it and/or modify it under
-the  terms  of the the Artistic License (2.0). You may obtain a copy of the full
+This  program is  free software; you can redistribute it and / or modify it under
+the  terms   of the the Artistic License (2.0). You may obtain a copy of the full
 license at:
 
 L<http://www.perlfoundation.org/artistic_license_2_0>
@@ -151,4 +162,4 @@ OF THE PACKAGE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 
-1; # End of WWW::Google::Places::SearchResult
+1; # End of WWW::Google::Places::Review

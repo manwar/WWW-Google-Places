@@ -1,11 +1,11 @@
-package WWW::Google::Places::SearchResult;
+package WWW::Google::Places::Geometry;
 
-$WWW::Google::Places::SearchResult::VERSION   = '0.19';
-$WWW::Google::Places::SearchResult::AUTHORITY = 'cpan:MANWAR';
+$WWW::Google::Places::Geometry::VERSION   = '0.19';
+$WWW::Google::Places::Geometry::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
 
-WWW::Google::Places::SearchResult - Placeholder for Search Result for WWW::Google::Places.
+WWW::Google::Places::Geometry - Placeholder for 'geometry' of WWW::Google::Places::DetailResult.
 
 =head1 VERSION
 
@@ -15,24 +15,24 @@ Version 0.19
 
 use 5.006;
 use Data::Dumper;
-use WWW::Google::Places::Geometry;
+use WWW::Google::Places::Location;
 
 use Moo;
 use namespace::clean;
 
-has 'place_id' => (is => 'ro');
-has 'name'     => (is => 'ro');
-has 'types'    => (is => 'ro');
-has 'geometry' => (is => 'ro');
-has 'icon'     => (is => 'ro', default => 'N/A');
-has 'vicinity' => (is => 'ro', default => 'N/A');
-has 'scope'    => (is => 'ro', default => 'GOOGLE');
+use overload q{""} => 'as_string', fallback => 1;
+
+has 'location' => (is => 'ro');
+has 'viewport' => (is => 'ro');
 
 sub BUILDARGS {
     my ($class, $args) = @_;
 
-    if (exists $args->{geometry}) {
-        $args->{geometry} = WWW::Google::Places::Geometry->new($args->{geometry});
+    if (exists $args->{location}) {
+        $args->{location} = WWW::Google::Places::Location->new($args->{location});
+    }
+    else {
+        $args->{location} = WWW::Google::Places::Location->new;
     }
 
     return $args;
@@ -40,33 +40,21 @@ sub BUILDARGS {
 
 =head1 METHODS
 
-=head2 place_id()
+=head2 lat()
 
-Returns the place id.
+Returns location latitude.
 
-=head2 name()
+=head2 lng()
 
-Returns place name.
+Returns location longitude.
 
-=head2 types()
+=cut
 
-Returns ref to a list of place types.
+sub as_string {
+    my ($self) = @_;
 
-=head2 geometry()
-
-Returns an object of type L<WWW::Google::Places::Geometry>.
-
-=head2 icon()
-
-Returns URL of the link to the place icon.
-
-=head2 vicinity()
-
-Returns the vicinity of place.
-
-=head2 scope()
-
-Returns the place search scope.
+    return sprintf("Location: %s", $self->location);
+}
 
 =head1 AUTHOR
 
@@ -87,7 +75,7 @@ bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc WWW::Google::Places::SearchResult
+    perldoc WWW::Google::Places::Location
 
 You can also look for information at:
 
@@ -115,8 +103,8 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 Copyright (C) 2011 - 2015 Mohammad S Anwar.
 
-This  program  is  free software; you can redistribute it and/or modify it under
-the  terms  of the the Artistic License (2.0). You may obtain a copy of the full
+This  program is  free software; you can redistribute it and / or modify it under
+the  terms   of the the Artistic License (2.0). You may obtain a copy of the full
 license at:
 
 L<http://www.perlfoundation.org/artistic_license_2_0>
@@ -151,4 +139,4 @@ OF THE PACKAGE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 
-1; # End of WWW::Google::Places::SearchResult
+1; # End of WWW::Google::Places::Location

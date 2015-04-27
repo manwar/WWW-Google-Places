@@ -3,6 +3,10 @@ lib/WWW/Google/Places.pm
 lib/WWW/Google/Places/Params.pm
 lib/WWW/Google/Places/SearchResult.pm
 lib/WWW/Google/Places/DetailResult.pm
+lib/WWW/Google/Places/Location.pm
+lib/WWW/Google/Places/Geometry.pm
+lib/WWW/Google/Places/Review.pm
+lib/WWW/Google/Places/Review/Aspect.pm
 Makefile.PL
 LICENSE
 MANIFEST

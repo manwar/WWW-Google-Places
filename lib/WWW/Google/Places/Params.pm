@@ -1,6 +1,6 @@
 package WWW::Google::Places::Params;
 
-$WWW::Google::Places::Params::VERSION   = '0.18';
+$WWW::Google::Places::Params::VERSION   = '0.19';
 $WWW::Google::Places::Params::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
 
 =head1 VERSION
 
-Version 0.18
+Version 0.19
 
 =head1 DESCRIPTION
 
