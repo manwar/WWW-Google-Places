@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.19';
+$WWW::Google::Places::VERSION   = '0.20';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.19
+Version 0.20
 
 =cut
 
@@ -305,7 +305,7 @@ others are optionals.
     use WWW::Google::Places;
 
     my $api_key = 'Your_API_Key';
-    my $place   = WWW::Google::Places->new(api_key => $api_key);
+    my $place   = WWW::Google::Places->new({ api_key => $api_key });
 
 =head1 METHODS
 
@@ -335,7 +335,7 @@ returns a list of objects of type L<WWW::Google::Places::SearchResult>.
     use WWW::Google::Places;
 
     my $api_key = 'Your_API_Key';
-    my $place   = WWW::Google::Places->new(api_key => $api_key);
+    my $place   = WWW::Google::Places->new({ api_key => $api_key });
     my $results = $place->search({ location=>'-33.8670522,151.1957362', radius=>500 });
 
 =cut
@@ -366,7 +366,7 @@ active.
     use WWW::Google::Places;
 
     my $api_key = 'Your_API_Key';
-    my $place   = WWW::Google::Places->new(api_key => $api_key);
+    my $place   = WWW::Google::Places->new({ api_key => $api_key });
     my $results = $place->paged_search(
                   { location => '34.0522222,-118.2427778',
                     radius   => 500,
@@ -407,7 +407,7 @@ from a Place Search. It then returns an object of type L<WWW::Google::Places::De
 
     my $api_key = 'Your_API_Key';
     my $placeid = 'Place_ID';
-    my $place   = WWW::Google::Places->new(api_key => $api_key);
+    my $place   = WWW::Google::Places->new({ api_key => $api_key });
     my $details = $place->details($placeid);
 
 =cut
@@ -445,7 +445,7 @@ returns place id.
     use WWW::Google::Places;
 
     my $api_key = 'Your_API_Key';
-    my $place   = WWW::Google::Places->new(api_key => $api_key);
+    my $place   = WWW::Google::Places->new({ api_key => $api_key });
     my $status  = $place->add({ 'location'=>'-33.8669710,151.1958750', accuracy=>40, name=>'Google Shoes!' });
 
 =cut
@@ -480,7 +480,7 @@ submitted them.
 
     my $api_key  = 'Your_API_Key';
     my $place_id = 'Place_ID';
-    my $place    = WWW::Google::Places->new(api_key => $api_key);
+    my $place    = WWW::Google::Places->new({ api_key => $api_key });
     my $status   = $place->delete($place_id);
 
 =cut

@@ -1,5 +1,8 @@
 Revision history for WWW-Google-Places
 
+0.20   Mon May 04 18:15:10 2015
+       - Fixed sample code in the pod document.
+
 0.19   Mon Apr 27 13:40:10 2015
        - Added following packages
          - WWW::Google::Places::Geometry

@@ -1,6 +1,6 @@
 package WWW::Google::Places::Location;
 
-$WWW::Google::Places::Location::VERSION   = '0.19';
+$WWW::Google::Places::Location::VERSION   = '0.20';
 $WWW::Google::Places::Location::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::Location - Placeholder for lat/lng.
 
 =head1 VERSION
 
-Version 0.19
+Version 0.20
 
 =cut
 
