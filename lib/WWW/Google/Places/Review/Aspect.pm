@@ -1,6 +1,6 @@
 package WWW::Google::Places::Review::Aspect;
 
-$WWW::Google::Places::Review::Aspect::VERSION   = '0.20';
+$WWW::Google::Places::Review::Aspect::VERSION   = '0.21';
 $WWW::Google::Places::Review::Aspect::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::Review::Aspect - Represent 'review aspect' of place.
 
 =head1 VERSION
 
-Version 0.20
+Version 0.21
 
 =cut
 
@@ -19,8 +19,8 @@ use namespace::clean;
 
 use overload q{""} => 'as_string', fallback => 1;
 
-has 'rating' => (is => 'ro', default => 'N/A');
-has 'type'   => (is => 'ro', default => 'N/A');
+has 'rating' => (is => 'ro', default => sub { 'N/A' });
+has 'type'   => (is => 'ro', default => sub { 'N/A' });
 
 =head1 METHODS
 

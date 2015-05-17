@@ -1,6 +1,6 @@
 package WWW::Google::Places::DetailResult;
 
-$WWW::Google::Places::DetailResult::VERSION   = '0.20';
+$WWW::Google::Places::DetailResult::VERSION   = '0.21';
 $WWW::Google::Places::DetailResult::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::DetailResult - Placeholder for detail Search Result for WWW
 
 =head1 VERSION
 
-Version 0.20
+Version 0.21
 
 =cut
 
@@ -21,15 +21,15 @@ use WWW::Google::Places::Geometry;
 use Moo;
 use namespace::clean;
 
-has 'website'                => (is => 'ro', default   => 'N/A');
-has 'place_id'               => (is => 'ro', required  => 1    );
-has 'formatted_phone_number' => (is => 'ro', default   => 'N/A');
-has 'opening_hours'          => (is => 'ro', default   => 'N/A');
-has 'internation_number'     => (is => 'ro', default   => 'N/A');
-has 'photos'                 => (is => 'ro', default   => 'N/A');
-has 'utf_offset'             => (is => 'ro', default   => 'N/A');
-has 'rating'                 => (is => 'ro', default   => 'N/A');
-has 'user_ratings_total'     => (is => 'ro', default   => 'N/A');
+has 'place_id'               => (is => 'ro', required => 1            );
+has 'website'                => (is => 'ro', default  => sub { 'N/A' });
+has 'formatted_phone_number' => (is => 'ro', default  => sub { 'N/A' });
+has 'opening_hours'          => (is => 'ro', default  => sub { 'N/A' });
+has 'internation_number'     => (is => 'ro', default  => sub { 'N/A' });
+has 'photos'                 => (is => 'ro', default  => sub { 'N/A' });
+has 'utf_offset'             => (is => 'ro', default  => sub { 'N/A' });
+has 'rating'                 => (is => 'ro', default  => sub { 'N/A' });
+has 'user_ratings_total'     => (is => 'ro', default  => sub { 'N/A' });
 has 'reviews'                => (is => 'ro');
 has 'vicinity'               => (is => 'ro');
 has 'adr_address'            => (is => 'ro');

@@ -1,6 +1,6 @@
 package WWW::Google::Places::SearchResult;
 
-$WWW::Google::Places::SearchResult::VERSION   = '0.20';
+$WWW::Google::Places::SearchResult::VERSION   = '0.21';
 $WWW::Google::Places::SearchResult::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::SearchResult - Placeholder for Search Result for WWW::Googl
 
 =head1 VERSION
 
-Version 0.20
+Version 0.21
 
 =cut
 
@@ -24,9 +24,9 @@ has 'place_id' => (is => 'ro');
 has 'name'     => (is => 'ro');
 has 'types'    => (is => 'ro');
 has 'geometry' => (is => 'ro');
-has 'icon'     => (is => 'ro', default => 'N/A');
-has 'vicinity' => (is => 'ro', default => 'N/A');
-has 'scope'    => (is => 'ro', default => 'GOOGLE');
+has 'icon'     => (is => 'ro', default => sub { 'N/A'    });
+has 'vicinity' => (is => 'ro', default => sub { 'N/A'    });
+has 'scope'    => (is => 'ro', default => sub { 'GOOGLE' });
 
 sub BUILDARGS {
     my ($class, $args) = @_;

@@ -1,6 +1,6 @@
 package WWW::Google::Places::Review;
 
-$WWW::Google::Places::Review::VERSION   = '0.20';
+$WWW::Google::Places::Review::VERSION   = '0.21';
 $WWW::Google::Places::Review::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::Review - Represent 'review' of place.
 
 =head1 VERSION
 
-Version 0.20
+Version 0.21
 
 =cut
 
@@ -21,12 +21,12 @@ use namespace::clean;
 
 use overload q{""} => 'as_string', fallback => 1;
 
-has 'author_name' => (is => 'ro', default => 'N/A');
-has 'author_url'  => (is => 'ro', default => 'N/A');
-has 'language'    => (is => 'ro', default => 'N/A');
-has 'rating'      => (is => 'ro', default => 'N/A');
-has 'text'        => (is => 'ro', default => 'N/A');
-has 'time'        => (is => 'ro', default => 'N/A');
+has 'author_name' => (is => 'ro', default   => sub { 'N/A' });
+has 'author_url'  => (is => 'ro', default   => sub { 'N/A' });
+has 'language'    => (is => 'ro', default   => sub { 'N/A' });
+has 'rating'      => (is => 'ro', default   => sub { 'N/A' });
+has 'text'        => (is => 'ro', default   => sub { 'N/A' });
+has 'time'        => (is => 'ro', default   => sub { 'N/A' });
 has 'aspects'     => (is => 'rw', predicate => 1);
 
 sub BUILD {

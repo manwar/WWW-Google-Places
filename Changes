@@ -1,5 +1,10 @@
 Revision history for WWW-Google-Places
 
+0.21   Sun May 17 08:30:00 2015
+       - Fixed setting default values to class attributes.
+       - Made the return value of method search() and paged_search() based on wantarray().
+       - Upgraded to use WWW::Google::UserAgent v0.16.
+
 0.20   Mon May 04 18:15:10 2015
        - Fixed sample code in the pod document.
 

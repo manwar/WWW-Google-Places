@@ -1,6 +1,6 @@
 package WWW::Google::Places::Location;
 
-$WWW::Google::Places::Location::VERSION   = '0.20';
+$WWW::Google::Places::Location::VERSION   = '0.21';
 $WWW::Google::Places::Location::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::Location - Placeholder for lat/lng.
 
 =head1 VERSION
 
-Version 0.20
+Version 0.21
 
 =cut
 
@@ -19,8 +19,8 @@ use namespace::clean;
 
 use overload q{""} => 'as_string', fallback => 1;
 
-has 'lat' => (is => 'ro', default => 'N/A');
-has 'lng' => (is => 'ro', default => 'N/A');
+has 'lat' => (is => 'ro', default => sub { 'N/A' });
+has 'lng' => (is => 'ro', default => sub { 'N/A' });
 
 =head1 METHODS
 

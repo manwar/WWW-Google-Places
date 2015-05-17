@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.20';
+$WWW::Google::Places::VERSION   = '0.21';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.20
+Version 0.21
 
 =cut
 
@@ -29,9 +29,9 @@ extends 'WWW::Google::UserAgent';
 
 our $BASE_URL = 'https://maps.googleapis.com/maps/api/place';
 
-has 'sensor'   => (is => 'ro', isa => $TrueOrFalse, default => sub { return 'false' });
-has 'output'   => (is => 'ro', isa => $XmlOrJson,   default => sub { return 'json'  });
-has 'language' => (is => 'ro', isa => $Language,    default => sub { return 'en'    });
+has 'sensor'   => (is => 'ro', isa => $TrueOrFalse, default => sub { 'false' });
+has 'output'   => (is => 'ro', isa => $XmlOrJson,   default => sub { 'json'  });
+has 'language' => (is => 'ro', isa => $Language,    default => sub { 'en'    });
 
 =head1 DESCRIPTION
 
@@ -311,8 +311,9 @@ others are optionals.
 
 =head2 search(\%params)
 
-Expects a ref to hash as the only parameter containing the following keys.It then
-returns a list of objects of type L<WWW::Google::Places::SearchResult>.
+It expects a ref to hash as the only parameter  containing the following keys. It
+returns list  of  objects  of type L<WWW::Google::Places::SearchResult> in a LIST
+context and ref to the same list in a SCALAR context.
 
     +----------+----------------------------------------------------------------+
     | Key      | Description                                                    |
@@ -349,7 +350,7 @@ sub search {
     my $contents = from_json($response->{content});
 
     my @results  = map { WWW::Google::Places::SearchResult->new($_) } @{$contents->{results}};
-    return @results;
+    return wantarray ? @results : \@results;
 }
 
 =head2 paged_search(\%params)
@@ -357,6 +358,9 @@ sub search {
 Accepts the  same  values  as C<search(\%params)> but  handles  queries that have
 multiple  pages worth of data. Using paged_search the max number of results is 60
 (or 3 pages worth) L<https://developers.google.com/places/documentation/search#PlaceSearchRequests>
+
+It returns list of objects of type L<WWW::Google::Places::SearchResult> in a LIST
+context and ref to a list in a SCALAR context.
 
 NOTE:Due to the way that Google handles the paging of results there is a required
 sleep of 2 seconds between each requests so that the Google pageTokens can become
@@ -394,7 +398,7 @@ sub paged_search {
           map { WWW::Google::Places::SearchResult->new($_) } @{$contents->{results}};
     } while $pagetoken = $contents->{next_page_token};
 
-    return $search_results;
+    return wantarray ? @$search_results : $search_results;
 }
 
 =head2 details($place_id)
