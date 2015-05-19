@@ -1,6 +1,6 @@
 package WWW::Google::Places::Params;
 
-$WWW::Google::Places::Params::VERSION   = '0.21';
+$WWW::Google::Places::Params::VERSION   = '0.22';
 $WWW::Google::Places::Params::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
 
 =head1 VERSION
 
-Version 0.21
+Version 0.22
 
 =head1 DESCRIPTION
 
@@ -145,6 +145,7 @@ our $FIELDS = {
     'language'     => { check => sub { check_language(@_) }, type => 's' },
     'address'      => { check => sub { check_str(@_)      }, type => 's' },
     'reference'    => { check => sub { check_str(@_)      }, type => 's' },
+    'pagetoken'    => { check => sub { check_str(@_)      }, type => 's' },
 };
 
 sub validate {
