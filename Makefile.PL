@@ -16,29 +16,29 @@ WriteMakefile(
     CONFIGURE_REQUIRES => {
         'ExtUtils::MakeMaker' => 0,
     },
-    BUILD_REQUIRES => {
+    BUILD_REQUIRES       => {
         'Test::More'     => 0,
         'Test::Internet' => '0.04',
     },
     PREREQ_PM => {
-        'JSON'                   => 0,
-        'Moo'                    => 0,
-        'namespace::clean'       => 0,
-        'WWW::Google::UserAgent' => '0.16',
+        'Moo'                    => '2.000000',
+        'namespace::clean'       => '0.24',
+        'JSON'                   => '2.53',
+        'WWW::Google::UserAgent' => '0.17',
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'WWW-Google-Places-*' },
     (eval { ExtUtils::MakeMaker->VERSION(6.46) } ? (META_MERGE => {
         'meta-spec' => { version => 2 },
         provides    => {
-            'WWW::Google::Places'                 => { file => 'lib/WWW/Google/Places.pm',               version => '0.22' },
-            'WWW::Google::Places::Params'         => { file => 'lib/WWW/Google/Places/Params.pm',        version => '0.22' },
-            'WWW::Google::Places::SearchResult'   => { file => 'lib/WWW/Google/Places/SearchResult.pm',  version => '0.22' },
-            'WWW::Google::Places::DetailResult'   => { file => 'lib/WWW/Google/Places/DetailResult.pm',  version => '0.22' },
-            'WWW::Google::Places::Geometry'       => { file => 'lib/WWW/Google/Places/Geometry.pm',      version => '0.22' },
-            'WWW::Google::Places::Location'       => { file => 'lib/WWW/Google/Places/Location.pm',      version => '0.22' },
-            'WWW::Google::Places::Review'         => { file => 'lib/WWW/Google/Places/Review.pm',        version => '0.22' },
-            'WWW::Google::Places::Review::Aspect' => { file => 'lib/WWW/Google/Places/Review/Aspect.pm', version => '0.22' },
+            'WWW::Google::Places'                 => { file => 'lib/WWW/Google/Places.pm',               version => '0.23' },
+            'WWW::Google::Places::Params'         => { file => 'lib/WWW/Google/Places/Params.pm',        version => '0.23' },
+            'WWW::Google::Places::SearchResult'   => { file => 'lib/WWW/Google/Places/SearchResult.pm',  version => '0.23' },
+            'WWW::Google::Places::DetailResult'   => { file => 'lib/WWW/Google/Places/DetailResult.pm',  version => '0.23' },
+            'WWW::Google::Places::Geometry'       => { file => 'lib/WWW/Google/Places/Geometry.pm',      version => '0.23' },
+            'WWW::Google::Places::Location'       => { file => 'lib/WWW/Google/Places/Location.pm',      version => '0.23' },
+            'WWW::Google::Places::Review'         => { file => 'lib/WWW/Google/Places/Review.pm',        version => '0.23' },
+            'WWW::Google::Places::Review::Aspect' => { file => 'lib/WWW/Google/Places/Review/Aspect.pm', version => '0.23' },
         },
         resources => {
             repository => {

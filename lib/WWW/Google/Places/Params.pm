@@ -1,6 +1,6 @@
 package WWW::Google::Places::Params;
 
-$WWW::Google::Places::Params::VERSION   = '0.22';
+$WWW::Google::Places::Params::VERSION   = '0.23';
 $WWW::Google::Places::Params::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
 
 =head1 VERSION
 
-Version 0.22
+Version 0.23
 
 =head1 DESCRIPTION
 
@@ -25,7 +25,7 @@ use vars qw(@ISA @EXPORT @EXPORT_OK);
 
 require Exporter;
 @ISA = qw(Exporter);
-@EXPORT_OK = qw(validate $Language $FIELDS);
+@EXPORT_OK = qw(validate $FIELDS);
 
 my $LANGUAGES = {
     'ar' => 1, 'eu' => 1, 'bg'    => 1, 'bn'    => 1, 'ca'    => 1, 'cs'    => 1, 'da'    => 1, 'de' => 1,
@@ -81,12 +81,6 @@ our $STATUS = {
     'REQUEST_DENIED'   => 'Your request was denied, generally because of lack of a sensor parameter.',
     'INVALID_REQUEST'  => 'A required query parameter (location or radius) is missing.',
     'UNKNOWN_ERROR'    => 'A server-side error; trying again may be successful.',
-};
-
-our $Language = sub {
-    my ($str) = @_;
-
-    die "ERROR: Invalid data type 'language' found [$str]" unless check_language($str);
 };
 
 sub check_language { return exists $LANGUAGES->{lc($_[0])}; }

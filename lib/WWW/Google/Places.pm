@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.22';
+$WWW::Google::Places::VERSION   = '0.23';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.22
+Version 0.23
 
 =cut
 
@@ -18,8 +18,8 @@ use JSON;
 use Data::Dumper;
 
 use WWW::Google::UserAgent;
-use WWW::Google::UserAgent::DataTypes qw($TrueOrFalse $XmlOrJson);
-use WWW::Google::Places::Params qw(validate $Language $FIELDS);
+use WWW::Google::UserAgent::DataTypes -all;
+use WWW::Google::Places::Params qw(validate $FIELDS);
 use WWW::Google::Places::SearchResult;
 use WWW::Google::Places::DetailResult;
 
@@ -29,9 +29,9 @@ extends 'WWW::Google::UserAgent';
 
 our $BASE_URL = 'https://maps.googleapis.com/maps/api/place';
 
-has 'sensor'   => (is => 'ro', isa => $TrueOrFalse, default => sub { 'false' });
-has 'output'   => (is => 'ro', isa => $XmlOrJson,   default => sub { 'json'  });
-has 'language' => (is => 'ro', isa => $Language,    default => sub { 'en'    });
+has 'sensor'   => (is => 'ro', isa => TrueFalse, default => sub { 'false' });
+has 'output'   => (is => 'ro', isa => FileType,  default => sub { 'json'  });
+has 'language' => (is => 'ro', isa => Language,  default => sub { 'en'    });
 
 =head1 DESCRIPTION
 

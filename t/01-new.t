@@ -16,12 +16,12 @@ eval { $google = WWW::Google::Places->new({ sensor => $sensor }); };
 like($@, qr/Missing required arguments: api_key/);
 
 eval { $google = WWW::Google::Places->new({ api_key => $api_key, language => 'en', sensor => 'falsee' }); };
-like($@, qr/isa check for "sensor" failed/);
+like($@, qr/did not pass type constraint "TrueFalse"/);
 
 eval { $google = WWW::Google::Places->new({api_key=>$api_key, sensor=>'false', language=>'enn'}); };
-like($@, qr/isa check for "language" failed/);
+like($@, qr/did not pass type constraint "Language"/);
 
 eval { $google = WWW::Google::Places->new({api_key=>$api_key, sensor=>'false', language=>'en-AUX'}); };
-like($@, qr/isa check for "language" failed/);
+like($@, qr/did not pass type constraint "Language"/);
 
 done_testing();

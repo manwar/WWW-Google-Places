@@ -1,5 +1,8 @@
 Revision history for WWW-Google-Places
 
+0.23   Sun Aug 09 12:00:00 2015
+       - Upgraded to use WWW::Google::UserAgent v0.17.
+
 0.22   Tue May 19 10:40:00 2015
        - Added missing 'pagetoken' field to $FIELDS in the package WWW::Google::Places::Params.
 
