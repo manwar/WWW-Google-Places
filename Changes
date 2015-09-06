@@ -1,5 +1,8 @@
 Revision history for WWW-Google-Places
 
+0.25  Sun Sep 06 08:35:00 2015
+      - Added link to the official Google API document.
+
 0.24   Wed Aug 19 10:10:00 2015
        - Upgraded to use WWW::Google::UserAgent v0.18.
 

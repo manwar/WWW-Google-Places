@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.24';
+$WWW::Google::Places::VERSION   = '0.25';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.24
+Version 0.25
 
 =cut
 
@@ -40,6 +40,8 @@ within  this  API  as establishments,  geographic location or prominent points o
 interest using HTTP request.Place requests specify location as latitude/longitude
 coordinates. Users with an API key are allowed 1,000 requests per 24 hour period.
 Currently it supports version v3.
+
+The official Google API document can be found L<here|https://developers.google.com/places/webservice/intro>.
 
 =head1 SYNOPSIS
 
