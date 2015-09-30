@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.25';
+$WWW::Google::Places::VERSION   = '0.26';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.25
+Version 0.26
 
 =cut
 
@@ -18,7 +18,7 @@ use JSON;
 use Data::Dumper;
 
 use WWW::Google::UserAgent;
-use WWW::Google::UserAgent::DataTypes -all;
+use WWW::Google::UserAgent::DataTypes qw(:all);
 use WWW::Google::Places::Params qw(validate $FIELDS);
 use WWW::Google::Places::SearchResult;
 use WWW::Google::Places::DetailResult;
