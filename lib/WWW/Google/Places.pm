@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.27';
+$WWW::Google::Places::VERSION   = '0.28';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.27
+Version 0.28
 
 =cut
 
@@ -19,7 +19,7 @@ use Data::Dumper;
 
 use WWW::Google::UserAgent;
 use WWW::Google::UserAgent::DataTypes qw(:all);
-use WWW::Google::Places::Params qw(validate $FIELDS);
+use WWW::Google::Places::Params qw(get_validator);
 use WWW::Google::Places::SearchResult;
 use WWW::Google::Places::DetailResult;
 
@@ -29,9 +29,18 @@ extends 'WWW::Google::UserAgent';
 
 our $BASE_URL = 'https://maps.googleapis.com/maps/api/place';
 
-has 'sensor'   => (is => 'ro', isa => TrueFalse, default => sub { 'false' });
-has 'output'   => (is => 'ro', isa => FileType,  default => sub { 'json'  });
-has 'language' => (is => 'ro', isa => Language,  default => sub { 'en'    });
+has 'sensor'    => (is => 'ro', isa => TrueFalse, default => sub { 'false' });
+has 'output'    => (is => 'ro', isa => FileType,  default => sub { 'json'  });
+has 'language'  => (is => 'ro', isa => Language,  default => sub { 'en'    });
+has 'validator' => (is => 'ro', default => \&get_validator);
+
+before [qw/search paged_search add/] => sub {
+    my ($self, $param) = @_;
+
+    my $method = (caller(1))[3];
+    $method =~ /(.*)\:\:(.*)$/;
+    $self->validator->validate($2, $param);
+};
 
 =head1 DESCRIPTION
 
@@ -346,8 +355,8 @@ context and ref to the same list in a SCALAR context.
 sub search {
     my ($self, $values) = @_;
 
-    my $params   = { location => 1, radius => 1, types => 0, name => 0 };
-    my $url      = $self->_url('search', $params, $values);
+    my $url = $self->_url('search');
+    $url .= $self->validator->query_param('search', $values);
     my $response = $self->get($url);
     my $contents = from_json($response->{content});
 
@@ -384,7 +393,6 @@ active.
 sub paged_search {
     my ($self, $values) = @_;
 
-    my $params = { location => 1, radius => 1, types => 0, name => 0, pagetoken => 0 };
     my ($pagetoken, $contents, $search_results);
     do {
        if (defined $pagetoken) {
@@ -392,7 +400,9 @@ sub paged_search {
           # pagetokens take a few seconds to become active
           sleep(2);
        }
-       my $url      = $self->_url('search', $params, $values);
+
+       my $url = $self->_url('search');
+       $url .= $self->validator->query_param('paged_search', $values);
        my $response = $self->get($url);
        $contents    = from_json( $response->{content} );
 
@@ -421,8 +431,11 @@ from a Place Search. It then returns an object of type L<WWW::Google::Places::De
 sub details {
     my ($self, $placeid) = @_;
 
-    my $params   = { placeid => 1 };
-    my $url      = $self->_url('details', $params, { placeid => $placeid });
+    my $values = { placeid => $placeid };
+    $self->validator->validate('details', $values);
+    my $url = $self->_url('details');
+    $url .= $self->validator->query_param('details', $values);
+
     my $response = $self->get($url);
     my $contents = from_json($response->{content});
 
@@ -459,8 +472,7 @@ returns place id.
 sub add {
     my ($self, $values) = @_;
 
-    my $params   = { location => 1, name => 1, types => 1, accuracy => 1,
-                     address => 0, website => 0, language => 0, phone_number => 0 };
+    my $params   = $self->validator->get_method('add')->fields;
     my $url      = $self->_url('add');
     my $content  = $self->_content($params, $values);
     my $headers  = { 'Host' => 'maps.googleapis.com' };
@@ -494,9 +506,11 @@ submitted them.
 sub delete {
     my ($self, $place_id) = @_;
 
-    my $params   = { place_id => 1 };
+    my $values   = { place_id => $place_id };
+    $self->validator->validate('delete', $values);
+    my $params   = $self->validator->get_method('delete')->fields;
     my $url      = $self->_url('delete');
-    my $content  = $self->_content($params, { place_id => $place_id });
+    my $content  = $self->_content($params, $values);
     my $headers  = { 'Host' => 'maps.googleapis.com' };
     my $response = $self->post($url, $headers, $content);
 
@@ -530,8 +544,12 @@ sub place_detail {
     my ($self, $reference) = @_;
 
     warn "DEPRECATED method, please use details(). Also key 'reference' is deprecated, use placeid";
-    my $params   = { reference => 1 };
-    my $url      = $self->_url('details', $params, { reference => $reference });
+
+    my $values   = { reference => $reference };
+    $self->validator->validate('place_detail', $values);
+    my $params   = $self->validator->get_method('place_detail')->fields;
+    my $url      = $self->_url('details');
+    $url .= $self->validator->query_param('place_detail', $values);
     my $response = $self->get($url);
     my $contents = from_json($response->{content});
 
@@ -563,9 +581,11 @@ sub delete_place {
     my ($self, $reference) = @_;
 
     warn "DEPRECATED method, please use delete(). Also key 'reference' is deprecated, use place_id";
-    my $params   = { reference => 1 };
+    my $values   = { reference => $reference };
+    $self->validator->validate('delete_place', $values);
+    my $params   = $self->validator->get_method('delete_place')->fields;
     my $url      = $self->_url('delete');
-    my $content  = $self->_content($params, { reference => $reference });
+    my $content  = $self->_content($params, $values);
     my $headers  = { 'Host' => 'maps.googleapis.com' };
     my $response = $self->post($url, $headers, $content);
 
@@ -585,28 +605,15 @@ sub place_checkins {
 # PRIVATE METHODS
 
 sub _url {
-    my ($self, $type, $params, $values) = @_;
+    my ($self, $type) = @_;
 
-    my $url = sprintf("%s/%s/%s?key=%s&sensor=%s&language=%s",
-                      $BASE_URL, $type, $self->output, $self->api_key,
-                      $self->sensor, $self->language);
-
-    if (defined $params && defined $values) {
-        validate($params, $values);
-
-        foreach my $key (keys %$params) {
-            my $_key = "&$key=%" . $FIELDS->{$key}->{type};
-            $url .= sprintf($_key, $values->{$key}) if defined $values->{$key};
-        }
-    }
-
-    return $url;
+    return sprintf("%s/%s/%s?key=%s&sensor=%s&language=%s",
+                   $BASE_URL, $type, $self->output, $self->api_key,
+                   $self->sensor, $self->language);
 }
 
 sub _content {
     my ($self, $params, $values) = @_;
-
-    validate($params, $values);
 
     my $data = {};
     foreach my $key (keys %$params) {
@@ -628,7 +635,7 @@ sub _content {
         elsif ($key eq 'types') {
             $data->{$key} = [ $values->{$key} ];
         }
-        elsif ($FIELDS->{$key}->{type} eq 'd') {
+        elsif ($self->validator->get_field($key)->format eq 'd') {
             $data->{$key} = _handle_number($values->{$key});
         }
         else {

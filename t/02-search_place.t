@@ -12,18 +12,18 @@ $sensor  = 'true';
 $google  = WWW::Google::Places->new(api_key=>$api_key, sensor=>$sensor);
 
 eval { $google->search({ location=>'-33.8670522,151.1957362' }); };
-like($@, qr/ERROR: Missing mandatory param: radius/);
+like($@, qr/search\(\)\: Missing required parameter/);
 
 eval { $google->search({ location=>'abcde,151.1957362', radius=>500 }); };
-like($@, qr/ERROR: Invalid location type data found/);
+like($@, qr/search\(\)\: Parameter failed check constraint/);
 
 eval { $google->search({ location=>'151.1957362', radius=>500 }); };
-like($@, qr/ERROR: Invalid location type data found/);
+like($@, qr/search\(\)\: Parameter failed check constraint/);
 
 eval { $google->search({ location=>'151.1957362,abcde', radius=>500 }); };
-like($@, qr/ERROR: Invalid location type data found/);
+like($@, qr/search\(\)\: Parameter failed check constraint/);
 
 eval { $google->search({ location=>'151.1957362,123.4567,123.45678', radius=>500 }); };
-like($@, qr/ERROR: Invalid location type data found/);
+like($@, qr/search\(\)\: Parameter failed check constraint/);
 
 done_testing();

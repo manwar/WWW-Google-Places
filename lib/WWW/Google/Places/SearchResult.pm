@@ -1,6 +1,6 @@
 package WWW::Google::Places::SearchResult;
 
-$WWW::Google::Places::SearchResult::VERSION   = '0.276';
+$WWW::Google::Places::SearchResult::VERSION   = '0.28';
 $WWW::Google::Places::SearchResult::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::SearchResult - Placeholder for Search Result for WWW::Googl
 
 =head1 VERSION
 
-Version 0.27
+Version 0.28
 
 =cut
 

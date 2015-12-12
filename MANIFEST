@@ -7,6 +7,7 @@ lib/WWW/Google/Places/Location.pm
 lib/WWW/Google/Places/Geometry.pm
 lib/WWW/Google/Places/Review.pm
 lib/WWW/Google/Places/Review/Aspect.pm
+share/method-config.json
 Makefile.PL
 LICENSE
 MANIFEST

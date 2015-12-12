@@ -1,6 +1,6 @@
 package WWW::Google::Places::Review::Aspect;
 
-$WWW::Google::Places::Review::Aspect::VERSION   = '0.27';
+$WWW::Google::Places::Review::Aspect::VERSION   = '0.28';
 $WWW::Google::Places::Review::Aspect::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,11 +9,13 @@ WWW::Google::Places::Review::Aspect - Represent 'review aspect' of place.
 
 =head1 VERSION
 
-Version 0.27
+Version 0.28
 
 =cut
 
 use 5.006;
+use Data::Dumper;
+
 use Moo;
 use namespace::clean;
 

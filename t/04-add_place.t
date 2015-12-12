@@ -11,15 +11,15 @@ $sensor  = 'true';
 $google  = WWW::Google::Places->new(api_key=>$api_key, sensor=>$sensor);
 
 eval { $google->add(); };
-like($@, qr/ERROR: Missing params list/);
+like($@, qr/add\(\)\: Missing parameters/);
 
 eval { $google->add({ 'location'=>'-33.8669710,151.1958750' }); };
-like($@, qr/ERROR: Missing mandatory param/);
+like($@, qr/add\(\)\: Missing required parameter/);
 
 eval { $google->add({ 'accuracy'=>50 }); };
-like($@, qr/ERROR: Missing mandatory param/);
+like($@, qr/add\(\)\: Missing required parameter/);
 
 eval { $google->add({ 'name'=>'Google Shoes!' }); };
-like($@, qr/ERROR: Missing mandatory param/);
+like($@, qr/add\(\)\: Missing required parameter/);
 
 done_testing();
