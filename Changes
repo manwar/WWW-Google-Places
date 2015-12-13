@@ -1,5 +1,8 @@
 Revision history for WWW-Google-Places
 
+0.29   Sun Dec 13 03:15:00 2015
+       - Fixed issue RT: 110292 raised by SREZIC.
+
 0.28   Sat Dec 12 05:05:00 2015
        - Used new package Method::ParamValidator for validating method parameters dynamically.
 
