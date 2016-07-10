@@ -1,6 +1,6 @@
 package WWW::Google::Places::SearchResult;
 
-$WWW::Google::Places::SearchResult::VERSION   = '0.29';
+$WWW::Google::Places::SearchResult::VERSION   = '0.30';
 $WWW::Google::Places::SearchResult::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::SearchResult - Placeholder for Search Result for WWW::Googl
 
 =head1 VERSION
 
-Version 0.29
+Version 0.30
 
 =cut
 
@@ -74,7 +74,7 @@ Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
 
 =head1 REPOSITORY
 
-L<https://github.com/Manwar/WWW-Google-Places>
+L<https://github.com/manwar/WWW-Google-Places>
 
 =head1 BUGS
 
@@ -113,7 +113,7 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (C) 2011 - 2015 Mohammad S Anwar.
+Copyright (C) 2011 - 2016 Mohammad S Anwar.
 
 This  program  is  free software; you can redistribute it and/or modify it under
 the  terms  of the the Artistic License (2.0). You may obtain a copy of the full

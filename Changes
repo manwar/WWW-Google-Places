@@ -1,4 +1,9 @@
-Revision history for WWW-Google-Places
+Revision history for WWW::Google::Places
+
+0.30   Sun Jul 10 12:00:00 2016
+       - Updated copyright year information.
+       - Addressed issue raised in the CPAN Tester Report.
+         http://www.cpantesters.org/cpan/report/3ed22692-434c-11e6-b35e-6fe162f69d7e
 
 0.29   Sun Dec 13 03:15:00 2015
        - Fixed issue RT: 110292 raised by SREZIC.
