@@ -1,6 +1,6 @@
 package WWW::Google::Places;
 
-$WWW::Google::Places::VERSION   = '0.30';
+$WWW::Google::Places::VERSION   = '0.31';
 $WWW::Google::Places::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places - Interface to Google Places API.
 
 =head1 VERSION
 
-Version 0.30
+Version 0.31
 
 =cut
 
@@ -61,38 +61,13 @@ The official Google API document can be found L<here|https://developers.google.c
     my $place   = WWW::Google::Places->new({ api_key => $api_key });
 
     # Google search place
-    my @results = $place->search({ location => '-33.8670522,151.1957362', radius => 500 });
-    foreach (@results) {
-        print "Id      : ", $_->place_id,             "\n";
-        print "Name    : ", $_->name,                 "\n";
-        print "Types   : ", join(", ", @{$_->types}), "\n";
-        print "Geometry: ", $_->geometry,             "\n";
-        print "Icon    : ", $_->icon,                 "\n";
-        print "Vicinity: ", $_->vicinity,             "\n";
-        print "Scope   : ", $_->scope,                "\n";
-        print "----------------------------------------\n";
-    }
+    my $results = $place->search({ location => '-33.8670522,151.1957362', radius => 500 });
+    print join("\n----------------------------------------\n", @$results), "\n";
 
     # Google search place details
     my $place_id = 'ChIJ1ZL9NkGuEmsRUEkzFmh9AQU';
-    my $result   = $place->details($place_id);
-    print "Name              : ", $result->name,                   "\n";
-    print "Types             : ", join(", ", @{$result->types}),   "\n";
-    print "URL               : ", $result->url,                    "\n";
-    print "Vicinity          : ", $result->vicinity,               "\n";
-    print "Website           : ", $result->website,                "\n";
-    print "Phone Number      : ", $result->formatted_phone_number, "\n";
-    print "Address           : ", $result->formatted_address,      "\n";
-    print "Reference         : ", $result->reference,              "\n";
-    print "UTF Offset        : ", $result->utf_offset,             "\n";
-    print "Scope             : ", $result->scope,                  "\n";
-    print "Icon              : ", $result->icon,                   "\n";
-    print "Reviews           : ", join("| ", @{$result->reviews}), "\n";
-    print "Rating            : ", $result->rating,                 "\n";
-    print "User Ratings      : ", $result->user_ratings_total,     "\n";
-    print "Opening Hours     : ", $result->opening_hours,          "\n";
-    print "Internation Number: ", $result->internation_number,     "\n";
-    print "Photos            : ", $result->photos,                 "\n";
+    print "\n----------------------------------------\n";
+    print $place->details($place_id), "\n";
 
 =head1 PLACE TYPES
 

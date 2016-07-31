@@ -1,6 +1,6 @@
 package WWW::Google::Places::Review;
 
-$WWW::Google::Places::Review::VERSION   = '0.30';
+$WWW::Google::Places::Review::VERSION   = '0.31';
 $WWW::Google::Places::Review::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::Review - Represent 'review' of place.
 
 =head1 VERSION
 
-Version 0.30
+Version 0.31
 
 =cut
 
@@ -77,7 +77,16 @@ Returns reviews aspects.
 sub as_string {
     my ($self) = @_;
 
-    return $self->text;
+    my $review = '';
+    $review .= sprintf("Author Name: %s\n", $self->author_name);
+    $review .= sprintf("Author URL : %s\n", $self->author_url);
+    $review .= sprintf("Language   : %s\n", $self->language);
+    $review .= sprintf("Rating     : %s\n", $self->rating);
+    $review .= sprintf("Text       : %s\n", $self->text);
+    $review .= sprintf("Time       : %s\n", $self->time);
+    $review .= sprintf("Aspects    : %s", $self->aspects);
+
+    return $review;
 }
 =head1 AUTHOR
 

@@ -1,58 +1,62 @@
-package WWW::Google::Places::Params;
+package WWW::Google::Places::Photo;
 
-$WWW::Google::Places::Params::VERSION   = '0.31';
-$WWW::Google::Places::Params::AUTHORITY = 'cpan:MANWAR';
+$WWW::Google::Places::Photo::VERSION   = '0.31';
+$WWW::Google::Places::Photo::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
 
-WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
+WWW::Google::Places::Photo - Placeholder for 'photo' of WWW::Google::Places::DetailResult.
 
 =head1 VERSION
 
 Version 0.31
 
-=head1 DESCRIPTION
-
-B<FOR INTERNAL USE ONLY>
-
 =cut
 
 use 5.006;
-use strict; use warnings;
 use Data::Dumper;
 
-use File::Share ':all';
-use Method::ParamValidator;
+use Moo;
+use namespace::clean;
 
-use vars qw(@ISA @EXPORT @EXPORT_OK);
+use overload q{""} => 'as_string', fallback => 1;
 
-require Exporter;
-@ISA = qw(Exporter);
-@EXPORT_OK = qw(get_validator);
+has 'width'             => (is => 'ro');
+has 'height'            => (is => 'ro');
+has 'photo_reference'   => (is => 'ro');
+has 'html_attributions' => (is => 'ro');
 
-sub get_validator {
-    my $validator = Method::ParamValidator->new( config => dist_file('WWW-Google-Places', 'method-config.json') );
-    $validator->get_field('location')->check(\&_check_location);
+=head1 METHODS
 
-    return $validator;
+=head2 width()
+
+Returns image width.
+
+=head2 height()
+
+Returns image height.
+
+=head2 photo_reference()
+
+Returns photo reference.
+
+=head2 html_attributions()
+
+Returns photo html attributions.
+
+=cut
+
+sub as_string {
+    my ($self) = @_;
+
+    my $photo = '';
+    $photo .= sprintf("Width            : %d\n", $self->width);
+    $photo .= sprintf("Height           : %d\n", $self->height);
+    $photo .= sprintf("Reference        : %s\n", $self->photo_reference);
+    $photo .= sprintf("HTML Attributions: %s", join("<BR>", @{$self->html_attributions}));
+
+    return $photo;
 }
-
-#
-#
-# PRIVATE METHODS
-sub _check_location  {
-    my ($location) = @_;
-
-    my ($latitude, $longitude);
-    return (defined $location
-            &&
-            ($location =~ /\,/)
-            &&
-            ((($latitude, $longitude) = split/\,/,$location,2)
-             &&
-             (($latitude =~ /^\-?\d+\.?\d+$/) && ($longitude =~ /^\-?\d+\.?\d+$/))
-            ));
-};
 
 =head1 AUTHOR
 
@@ -73,7 +77,7 @@ bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc WWW::Google::Places::Params
+    perldoc WWW::Google::Places::Photo
 
 You can also look for information at:
 
@@ -101,8 +105,8 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 Copyright (C) 2011 - 2016 Mohammad S Anwar.
 
-This  program  is  free software; you can redistribute it and/or modify it under
-the  terms  of the the Artistic License (2.0). You may obtain a copy of the full
+This  program is  free software; you can redistribute it and / or modify it under
+the  terms   of the the Artistic License (2.0). You may obtain a copy of the full
 license at:
 
 L<http://www.perlfoundation.org/artistic_license_2_0>
@@ -137,4 +141,4 @@ OF THE PACKAGE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 
-1; # End of WWW::Google::Places::Params
+1; # End of WWW::Google::Places::Photo

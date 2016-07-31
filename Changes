@@ -1,5 +1,13 @@
 Revision history for WWW::Google::Places
 
+0.31   Sun Jul 31 03:30:00 2016
+       - Added package for attributes 'photos' and 'address_components'.
+       - Updated method WWW::Google::Place::Review::as_string().
+       - Added method WWW::Google::Place::DetailResult::as_string().
+       - Added method WWW::Google::Place::SearchResult::as_string().
+       - Updated section "SYNOPSIS" to reflect the above changes.
+       - Tidied up unit test scripts.
+
 0.30   Sun Jul 10 12:00:00 2016
        - Updated copyright year information.
        - Addressed issue raised in the CPAN Tester Report.

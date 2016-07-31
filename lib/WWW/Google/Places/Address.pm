@@ -1,58 +1,56 @@
-package WWW::Google::Places::Params;
+package WWW::Google::Places::Address;
 
-$WWW::Google::Places::Params::VERSION   = '0.31';
-$WWW::Google::Places::Params::AUTHORITY = 'cpan:MANWAR';
+$WWW::Google::Places::Address::VERSION   = '0.31';
+$WWW::Google::Places::Address::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
 
-WWW::Google::Places::Params - Placeholder for parameters for WWW::Google::Places
+WWW::Google::Places::Address - Placeholder for 'address_components' of WWW::Google::Places::DetailResult.
 
 =head1 VERSION
 
 Version 0.31
 
-=head1 DESCRIPTION
-
-B<FOR INTERNAL USE ONLY>
-
 =cut
 
 use 5.006;
-use strict; use warnings;
 use Data::Dumper;
 
-use File::Share ':all';
-use Method::ParamValidator;
+use Moo;
+use namespace::clean;
 
-use vars qw(@ISA @EXPORT @EXPORT_OK);
+use overload q{""} => 'as_string', fallback => 1;
 
-require Exporter;
-@ISA = qw(Exporter);
-@EXPORT_OK = qw(get_validator);
+has 'short_name' => (is => 'ro');
+has 'long_name'  => (is => 'ro');
+has 'types'      => (is => 'ro');
 
-sub get_validator {
-    my $validator = Method::ParamValidator->new( config => dist_file('WWW-Google-Places', 'method-config.json') );
-    $validator->get_field('location')->check(\&_check_location);
+=head1 METHODS
 
-    return $validator;
+=head2 short_name()
+
+Returns address short name.
+
+=head2 long_name()
+
+Returns address long name.
+
+=head2 types()
+
+Returns address types.
+
+=cut
+
+sub as_string {
+    my ($self) = @_;
+
+    my $address = '';
+    $address .= sprintf("Short Name: %s\n", $self->short_name);
+    $address .= sprintf("Long Name : %s\n", $self->long_name);
+    $address .= sprintf("Types     : %s"  , join(", ", @{$self->types}));
+
+    return $address;
 }
-
-#
-#
-# PRIVATE METHODS
-sub _check_location  {
-    my ($location) = @_;
-
-    my ($latitude, $longitude);
-    return (defined $location
-            &&
-            ($location =~ /\,/)
-            &&
-            ((($latitude, $longitude) = split/\,/,$location,2)
-             &&
-             (($latitude =~ /^\-?\d+\.?\d+$/) && ($longitude =~ /^\-?\d+\.?\d+$/))
-            ));
-};
 
 =head1 AUTHOR
 
@@ -73,7 +71,7 @@ bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc WWW::Google::Places::Params
+    perldoc WWW::Google::Places::Address
 
 You can also look for information at:
 
@@ -101,8 +99,8 @@ L<http://search.cpan.org/dist/WWW-Google-Places/>
 
 Copyright (C) 2011 - 2016 Mohammad S Anwar.
 
-This  program  is  free software; you can redistribute it and/or modify it under
-the  terms  of the the Artistic License (2.0). You may obtain a copy of the full
+This  program is  free software; you can redistribute it and / or modify it under
+the  terms   of the the Artistic License (2.0). You may obtain a copy of the full
 license at:
 
 L<http://www.perlfoundation.org/artistic_license_2_0>
@@ -137,4 +135,4 @@ OF THE PACKAGE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 
-1; # End of WWW::Google::Places::Params
+1; # End of WWW::Google::Places::Address

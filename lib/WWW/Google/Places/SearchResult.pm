@@ -1,6 +1,6 @@
 package WWW::Google::Places::SearchResult;
 
-$WWW::Google::Places::SearchResult::VERSION   = '0.30';
+$WWW::Google::Places::SearchResult::VERSION   = '0.31';
 $WWW::Google::Places::SearchResult::AUTHORITY = 'cpan:MANWAR';
 
 =head1 NAME
@@ -9,7 +9,7 @@ WWW::Google::Places::SearchResult - Placeholder for Search Result for WWW::Googl
 
 =head1 VERSION
 
-Version 0.30
+Version 0.31
 
 =cut
 
@@ -19,6 +19,8 @@ use WWW::Google::Places::Geometry;
 
 use Moo;
 use namespace::clean;
+
+use overload q{""} => 'as_string', fallback => 1;
 
 has 'place_id' => (is => 'ro');
 has 'name'     => (is => 'ro');
@@ -67,6 +69,23 @@ Returns the vicinity of place.
 =head2 scope()
 
 Returns the place search scope.
+
+=cut
+
+sub as_string {
+    my ($self) = @_;
+
+    my $search_result = '';
+    $search_result .= sprintf("Id      : %s\n", $self->place_id);
+    $search_result .= sprintf("Name    : %s\n", $self->name);
+    $search_result .= sprintf("Types   : %s\n", join(", ", @{$self->types}));
+    $search_result .= sprintf("Geometry: %s\n", $self->geometry);
+    $search_result .= sprintf("Icon    : %s\n", $self->icon);
+    $search_result .= sprintf("Vicinity: %s\n", $self->vicinity);
+    $search_result .= sprintf("Scope   : %s", $self->scope);
+
+    return $search_result;
+}
 
 =head1 AUTHOR
 
