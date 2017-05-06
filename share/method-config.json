@@ -11,7 +11,7 @@
        { "name" : "reference",    "format" : "s", "type" : "Str" },
        { "name" : "pagetoken",    "format" : "s", "type" : "Str" },
        { "name" : "location",     "format" : "s", "type" : "Str" },
-       { "name" : "types",        "format" : "s", "type" : "Str",
+       { "name" : "types",        "format" : "s", "type" : "Str", "multi" : "|",
          "source": [ "accounting", "airport", "amusement_park", "aquarium", "art_gallery", "atm",
                      "bakery", "bank", "bar", "beauty_salon", "bicycle_store", "book_store",
                      "bowling_alley", "bus_station", "cafe", "campground", "car_dealer",

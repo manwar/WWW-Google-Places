@@ -1,5 +1,8 @@
 Revision history for WWW::Google::Places
 
+0.32   Sat May 06 11:30:00 2017
+       - Fixed issue #2 with regard to parameter 'types' having multiple values.
+
 0.31   Sun Jul 31 03:30:00 2016
        - Added package for attributes 'photos' and 'address_components'.
        - Updated method WWW::Google::Place::Review::as_string().
